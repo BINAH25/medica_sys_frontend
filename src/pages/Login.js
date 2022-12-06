@@ -1,70 +1,94 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "adminbsb-materialdesign/plugins/bootstrap/css/bootstrap.css";
 import "adminbsb-materialdesign/plugins/node-waves/waves.css";
 import "adminbsb-materialdesign/plugins/animate-css/animate.css";
 import "adminbsb-materialdesign/css/style.css";
 const Login = () => {
+  const [msg, setMsg] = useState({
+    username: "",
+    password: "",
+  });
+  // Handle Inputs
+
+  const handleChange = (event) => {
+    let name = event.target.name;
+    let value = event.target.value;
+
+    setMsg({ ...msg, [name]: value });
+  };
+  // Handle formSubmit
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(msg);
+    setMsg({
+      username: "",
+      password: "",
+    });
+  };
   document.body.className = "login-page";
   return (
-    <div class="login-box">
-      <div class="logo">
-        <a href="javascript:void(0);">
-          Admin<b>BSB</b>
-        </a>
-        <small>Admin BootStrap Based - Material Design</small>
+    <div className="login-box">
+      <div className="logo">
+        <a href="">Medical Store</a>
+        <small>Management System</small>
       </div>
-      <div class="card">
-        <div class="body">
-          <form id="sign_in" method="POST">
-            <div class="msg">Sign in to start your session</div>
-            <div class="input-group">
-              <div class="form-line">
+      <div className="card">
+        <div className="body">
+          <form method="POST" onSubmit={handleSubmit}>
+            <div className="msg">Sign in to start your session</div>
+            <div className="input-group">
+              <div className="form-line">
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   name="username"
                   placeholder="Username"
                   required
-                  autofocus
+                  value={msg.username}
+                  onChange={handleChange}
+                  autoFocus
                 />
               </div>
             </div>
-            <div class="input-group">
-              <div class="form-line">
+            <div className="input-group">
+              <div className="form-line">
                 <input
                   type="password"
-                  class="form-control"
+                  className="form-control"
                   name="password"
                   placeholder="Password"
+                  value={msg.password}
+                  onChange={handleChange}
                   required
                 />
               </div>
             </div>
-            <div class="row">
-              <div class="col-xs-8 p-t-5">
+            <div className="row">
+              <div className="col-xs-8 p-t-5">
                 <input
                   type="checkbox"
                   name="rememberme"
                   id="rememberme"
-                  class="filled-in chk-col-pink"
+                  className="filled-in chk-col-pink"
                 />
-                <label for="rememberme">Remember Me</label>
+                <label htmlFor="rememberme">Remember Me</label>
               </div>
-              <div class="col-xs-4">
+              <div className="col-xs-4">
                 <button
-                  class="btn btn-block bg-pink waves-effect"
+                  className="btn btn-block bg-pink waves-effect"
                   type="submit"
                 >
                   SIGN IN
                 </button>
               </div>
             </div>
-            <div class="row m-t-15 m-b--20">
-              <div class="col-xs-6">
-                <a href="sign-up.html">Register Now!</a>
+            <div className="row m-t-15 m-b--20">
+              <div className="col-xs-6">
+                <a href="">Register Now!</a>
               </div>
-              <div class="col-xs-6 align-right">
-                <a href="forgot-password.html">Forgot Password?</a>
+              <div className="col-xs-6 align-right">
+                <a href="">Forgot Password?</a>
               </div>
             </div>
           </form>
