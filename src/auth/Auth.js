@@ -10,11 +10,14 @@ class Auth {
         if (response.status === 200) {
           reactLocalStorage.set("token", response.data.access);
           reactLocalStorage.set("refresh", response.data.refresh);
-          callback("Login Successful...");
+          callback({ error: "false", message: "Login Successful..." });
         }
       })
       .catch(function (error) {
-        callback("error during or invalid login details..");
+        callback({
+          error: "true",
+          message: "error during or invalid login details..",
+        });
       });
   };
 }
