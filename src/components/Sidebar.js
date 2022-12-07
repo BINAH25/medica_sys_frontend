@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Sidebar = () => {
+  const [show, setShow] = useState({
+    defaultClass: "btn-group user-helper-dropdown",
+  });
+
+  const showLogoutMenu = () => {
+    if (show.defaultClass === "btn-group user-helper-dropdown") {
+      setShow({ defaultClass: "btn-group user-helper-dropdown open" });
+    } else {
+      setShow({ defaultClass: "btn-group user-helper-dropdown" });
+    }
+  };
   return (
     <section>
       <aside id="leftsidebar" className="sidebar">
@@ -18,12 +29,13 @@ const Sidebar = () => {
               SuperCoders
             </div>
             <div className="email">supercoders.tech@gmail.com</div>
-            <div className="btn-group user-helper-dropdown open">
+            <div className={show.defaultClass}>
               <i
                 className="material-icons"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="true"
+                onClick={showLogoutMenu}
               >
                 keyboard_arrow_down
               </i>

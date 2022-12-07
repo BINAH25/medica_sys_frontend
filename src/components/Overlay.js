@@ -1,7 +1,7 @@
 import React from "react";
 
-const Overlay = () => {
-  return <div className="overlay"></div>;
+const Overlay = ({ display }) => {
+  return <div className="overlay" style={{ display: display }}></div>;
 };
 
 export default Overlay;
