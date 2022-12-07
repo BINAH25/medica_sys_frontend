@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Auth from "../auth/Auth";
 import "adminbsb-materialdesign/plugins/bootstrap/css/bootstrap.css";
 import "adminbsb-materialdesign/plugins/node-waves/waves.css";
 import "adminbsb-materialdesign/plugins/animate-css/animate.css";
@@ -20,7 +21,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(msg);
+    Auth.login(msg.username, msg.password);
     setMsg({
       username: "",
       password: "",
