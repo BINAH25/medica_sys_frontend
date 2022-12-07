@@ -21,11 +21,14 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Auth.login(msg.username, msg.password);
+    Auth.login(msg.username, msg.password, handleResponse);
     setMsg({
       username: "",
       password: "",
     });
+  };
+  const handleResponse = (data) => {
+    console.log(data);
   };
   document.body.className = "login-page";
   return (
