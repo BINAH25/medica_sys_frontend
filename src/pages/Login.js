@@ -4,7 +4,8 @@ import "adminbsb-materialdesign/plugins/bootstrap/css/bootstrap.css";
 import "adminbsb-materialdesign/plugins/node-waves/waves.css";
 import "adminbsb-materialdesign/plugins/animate-css/animate.css";
 import "adminbsb-materialdesign/css/style.css";
-
+import { Navigate } from "react-router-dom";
+import Config from "../auth/Config";
 // main function
 const Login = () => {
   const [msg, setMsg] = useState({
@@ -44,6 +45,8 @@ const Login = () => {
       setMsg({
         loginStatus: 3,
       });
+      window.location = Config.homeUrl;
+      //<Navigate to="/home" replace={true} />;
     }
   };
 
