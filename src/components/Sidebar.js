@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-
+import Config from "../auth/Config";
+import { Link } from "react-router-dom";
+// function
 const Sidebar = () => {
   const [show, setShow] = useState({
     defaultClass: "btn-group user-helper-dropdown",
@@ -60,11 +62,17 @@ const Sidebar = () => {
             }}
           >
             <ul className="list" style={{ overflow: "hidden", width: "auto" }}>
-              <li className="active">
-                <a href="" className=" toggled waves-effect waves-block">
-                  <i className="material-icons">home</i>
-                </a>
-              </li>
+              {Config.sidebarItem.map((item, index) => (
+                <li className="active" key={index}>
+                  <Link
+                    to={item.url}
+                    className=" toggled waves-effect waves-block"
+                  >
+                    <i className="material-icons">{item.icons}</i>
+                    <span>{item.title}</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
             <div
               className="slimScrollBar"
@@ -101,8 +109,7 @@ const Sidebar = () => {
 
         <div className="legal">
           <div className="copyright">
-            © 2020 - 2021{" "}
-            <a href="#">SuperCoders - Medical Store Management System</a>.
+            © 2022 <a href="#">Codex- Medical Store Management System</a>.
           </div>
           <div className="version">
             <b>Version: </b> 1.0.5
