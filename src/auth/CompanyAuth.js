@@ -36,6 +36,13 @@ class CompanyAuth {
         });
       });
   };
+
+  // url to get all company
+  static getCompanyData = () => {
+    axios.get(Config.companyUrl, {
+      headers: { Authorization: "Bearer " + Auth.getLoginToken() },
+    });
+  };
 }
 
 export default CompanyAuth;

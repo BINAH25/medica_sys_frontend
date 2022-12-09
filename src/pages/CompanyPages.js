@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CompanyAuth from "../auth/CompanyAuth";
+import axios from "axios";
+import Config from "../auth/Config";
+import Auth from "../auth/Auth";
 const CompanyPages = () => {
+  const [getCompanies, setGetCompanies] = useState([]);
   const [company, setCompany] = useState({
     name: "",
     license_no: "",
@@ -9,6 +13,7 @@ const CompanyPages = () => {
     email: "",
     description: "",
     companyStatus: 0,
+    dataLoaded: false,
   });
   // Handle Inputs
 
@@ -81,7 +86,18 @@ const CompanyPages = () => {
       );
     }
   };
-
+  //
+  useEffect(() => {
+    getAllCompanies();
+  }, []);
+  let getAllCompanies = async () => {
+    let res = await axios.get(Config.companyUrl, {
+      headers: { Authorization: "Bearer " + Auth.getLoginToken() },
+    });
+    console.log(res);
+    setGetCompanies(res.data);
+    setCompany({ dataLoaded: true });
+  };
   return (
     <section className="content">
       <div className="container-fluid">
@@ -196,6 +212,67 @@ const CompanyPages = () => {
                   </button>
                   <br />
                 </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row clearfix">
+          <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div className="card">
+              <div className="header">
+                {company.dataLoaded == false ? (
+                  <div className="text-center">
+                    <div className="preloader pl-size-xl">
+                      <div className="spinner-layer">
+                        <div className="circle-clipper left">
+                          <div className="circle"></div>
+                        </div>
+                        <div className="circle-clipper right">
+                          <div className="circle"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <h2>All Companies</h2>
+              </div>
+              <div className="body table-responsive">
+                <table className="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>#ID</th>
+                      <th>NAME</th>
+                      <th>License NO.</th>
+                      <th>Address</th>
+                      <th>Contact</th>
+                      <th>Email</th>
+                      <th>Description</th>
+                      <th>Added On</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {getCompanies.map((company) => (
+                      <tr key={company.id}>
+                        <td>{company.id}</td>
+                        <td>{company.name}</td>
+                        <td>{company.license_no}</td>
+                        <td>{company.address}</td>
+                        <td>{company.contact_no}</td>
+                        <td>{company.email}</td>
+                        <td>{company.description}</td>
+                        <td>{new Date(company.added_on).toLocaleString()}</td>
+                        <td>
+                          <button className="btn btn-block btn-warning">
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
