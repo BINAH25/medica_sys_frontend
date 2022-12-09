@@ -1,8 +1,8 @@
 import axios from "axios";
 import Config from "./Config";
-
+import Auth from "./Auth";
 class CompanyAuth {
-  static company = (
+  static companyCreate = (
     name,
     license_no,
     address,
@@ -12,14 +12,18 @@ class CompanyAuth {
     callback
   ) => {
     axios
-      .post(Config.companyUrl, {
-        name: name,
-        license_no: license_no,
-        address: address,
-        contact_no: contact_no,
-        email: email,
-        description: description,
-      })
+      .post(
+        Config.companyUrl,
+        {
+          name: name,
+          license_no: license_no,
+          address: address,
+          contact_no: contact_no,
+          email: email,
+          description: description,
+        },
+        { headers: { Authorization: "Bearer " + Auth.getLoginToken() } }
+      )
       .then(function (response) {
         if (response.status === 200) {
           callback({ error: "false", message: "Company added Successful..." });

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-
+import CompanyAuth from "../auth/CompanyAuth";
 const CompanyPages = () => {
   const [company, setCompany] = useState({
-    username: "",
-    password: "",
-    loginStatus: 0,
+    name: "",
+    license_no: "",
+    address: "",
+    contact_no: "",
+    email: "",
+    description: "",
+    companyStatus: 0,
   });
   // Handle Inputs
 
@@ -12,40 +16,76 @@ const CompanyPages = () => {
     let name = event.target.name;
     let value = event.target.value;
 
-    setMsg({ ...msg, [name]: value });
+    setCompany({ ...company, [name]: value });
   };
 
   // Handle formSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
-    setMsg({
-      loginStatus: 1,
+    setCompany({
+      companyStatus: 1,
     });
-    Auth.login(msg.username, msg.password, handleResponse);
-    setMsg({
-      username: "",
-      password: "",
+    CompanyAuth.companyCreate(
+      company.name,
+      company.license_no,
+      company.address,
+      company.contact_no,
+      company.email,
+      company.description,
+      handleResponse
+    );
+    setCompany({
+      name: "",
+      license_no: "",
+      address: "",
+      contact_no: "",
+      email: "",
+      description: "",
     });
   };
 
   // getting login response
   const handleResponse = (data) => {
-    if (data.message === "error during or invalid login details..") {
-      setMsg({
-        loginStatus: 4,
+    if (data.message === "Error, Failed to Add Company..") {
+      setCompany({
+        companyStatus: 4,
       });
     } else {
-      setMsg({
-        loginStatus: 3,
+      setCompany({
+        companyStatus: 3,
       });
-      window.location = Config.homeUrl;
-      //<Navigate to="/home" replace={true} />;
+    }
+  };
+
+  // getting login message
+  const getMessage = () => {
+    if (company.companyStatus === 0) {
+      return "";
+    } else if (company.companyStatus === 1) {
+      return (
+        <div className="alert alert-warning">
+          <strong>Logging in!</strong> Please Wait...
+        </div>
+      );
+    } else if (company.companyStatus === 3) {
+      return (
+        <div className="alert alert-success">
+          <strong>Company added Successful!</strong>
+        </div>
+      );
+    } else if (company.companyStatus === 4) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Failed to Add Company</strong>
+        </div>
+      );
     }
   };
 
   return (
     <section className="content">
       <div className="container-fluid">
+        <div className="col-xs-12">{getMessage()}</div>
         <div className="block-header">
           <h2>MANAGE COMPANY</h2>
         </div>
@@ -56,7 +96,7 @@ const CompanyPages = () => {
                 <h2>Add Company</h2>
               </div>
               <div className="body">
-                <form>
+                <form method="post" onSubmit={handleSubmit}>
                   <label htmlFor="email_address">Name</label>
                   <div className="form-group">
                     <div className="form-line">
@@ -66,6 +106,9 @@ const CompanyPages = () => {
                         name="name"
                         className="form-control"
                         placeholder="Enter Company Name"
+                        value={company.name}
+                        onChange={handleChange}
+                        required
                       />
                     </div>
                   </div>
@@ -78,6 +121,9 @@ const CompanyPages = () => {
                         name="license_no"
                         className="form-control"
                         placeholder="Enter License No."
+                        value={company.license_no}
+                        onChange={handleChange}
+                        required
                       />
                     </div>
                   </div>
@@ -90,6 +136,9 @@ const CompanyPages = () => {
                         name="address"
                         className="form-control"
                         placeholder="Enter Company Address"
+                        value={company.address}
+                        onChange={handleChange}
+                        required
                       />
                     </div>
                   </div>
@@ -102,6 +151,9 @@ const CompanyPages = () => {
                         name="contact_no"
                         className="form-control"
                         placeholder="Enter Contact No."
+                        value={company.contact_no}
+                        onChange={handleChange}
+                        required
                       />
                     </div>
                   </div>
@@ -114,6 +166,9 @@ const CompanyPages = () => {
                         name="email"
                         className="form-control"
                         placeholder="Enter Company Email"
+                        value={company.email}
+                        onChange={handleChange}
+                        required
                       />
                     </div>
                   </div>
@@ -126,6 +181,9 @@ const CompanyPages = () => {
                         name="description"
                         className="form-control"
                         placeholder="Enter Description"
+                        value={company.description}
+                        onChange={handleChange}
+                        required
                       />
                     </div>
                   </div>

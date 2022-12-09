@@ -20,6 +20,9 @@ class Auth {
         });
       });
   };
+  static getLoginToken() {
+    return reactLocalStorage.get("token");
+  }
 }
 
 export default Auth;
