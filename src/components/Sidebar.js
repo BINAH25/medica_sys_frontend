@@ -28,9 +28,9 @@ const Sidebar = () => {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              SuperCoders
+              Codex
             </div>
-            <div className="email">supercoders.tech@gmail.com</div>
+            <div className="email">codex@gmail.com</div>
             <div className={show.defaultClass}>
               <i
                 className="material-icons"

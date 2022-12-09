@@ -1,6 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 
 const CompanyPages = () => {
+  const [company, setCompany] = useState({
+    username: "",
+    password: "",
+    loginStatus: 0,
+  });
+  // Handle Inputs
+
+  const handleChange = (event) => {
+    let name = event.target.name;
+    let value = event.target.value;
+
+    setMsg({ ...msg, [name]: value });
+  };
+
+  // Handle formSubmit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setMsg({
+      loginStatus: 1,
+    });
+    Auth.login(msg.username, msg.password, handleResponse);
+    setMsg({
+      username: "",
+      password: "",
+    });
+  };
+
+  // getting login response
+  const handleResponse = (data) => {
+    if (data.message === "error during or invalid login details..") {
+      setMsg({
+        loginStatus: 4,
+      });
+    } else {
+      setMsg({
+        loginStatus: 3,
+      });
+      window.location = Config.homeUrl;
+      //<Navigate to="/home" replace={true} />;
+    }
+  };
+
   return (
     <section className="content">
       <div className="container-fluid">
@@ -91,7 +133,9 @@ const CompanyPages = () => {
                   <button
                     type="submit"
                     className="btn btn-primary m-t-15 waves-effect btn-block"
-                  ></button>
+                  >
+                    Add Company
+                  </button>
                   <br />
                 </form>
               </div>
