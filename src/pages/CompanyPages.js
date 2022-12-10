@@ -96,7 +96,6 @@ const CompanyPages = () => {
     let res = await axios.get(Config.companyUrl, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
-    console.log(res);
     setGetCompanies(res.data);
     setCompany({ dataLoaded: true });
   };

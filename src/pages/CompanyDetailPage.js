@@ -7,6 +7,23 @@ const CompanyDetailPage = () => {
   const params = useParams();
   const id = params.id;
   const [company, setCompany] = useState(null);
+  const [ediCompany, setEditCompany] = useState({
+    name: "",
+    license_no: "",
+    address: "",
+    contact_no: "",
+    email: "",
+    description: "",
+    companyStatus: 0,
+  });
+  // Handle Inputs
+
+  const handleChange = (event) => {
+    let name = event.target.name;
+    let value = event.target.value;
+
+    setEditCompany({ ...ediCompany, [name]: value });
+  };
 
   useEffect(() => {
     getData();
@@ -15,8 +32,15 @@ const CompanyDetailPage = () => {
     let res = await axios.get(Config.companyUrl + id, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
-    console.log(res);
     setCompany(res.data);
+    setEditCompany({
+      name: res.data.name,
+      license_no: res.data.license_no,
+      address: res.data.address,
+      contact_no: res.data.contact_no,
+      email: res.data.email,
+      description: res.data.description,
+    });
   };
 
   return (
@@ -43,6 +67,8 @@ const CompanyDetailPage = () => {
                         name="name"
                         className="form-control"
                         placeholder="Enter Company Name"
+                        value={ediCompany.name}
+                        onChange={handleChange}
                         required
                       />
                     </div>
@@ -56,6 +82,8 @@ const CompanyDetailPage = () => {
                         name="license_no"
                         className="form-control"
                         placeholder="Enter License No."
+                        value={ediCompany.license_no}
+                        onChange={handleChange}
                         required
                       />
                     </div>
@@ -69,6 +97,8 @@ const CompanyDetailPage = () => {
                         name="address"
                         className="form-control"
                         placeholder="Enter Company Address"
+                        value={ediCompany.address}
+                        onChange={handleChange}
                         required
                       />
                     </div>
@@ -82,6 +112,8 @@ const CompanyDetailPage = () => {
                         name="contact_no"
                         className="form-control"
                         placeholder="Enter Contact No."
+                        value={ediCompany.contact_no}
+                        onChange={handleChange}
                         required
                       />
                     </div>
@@ -95,6 +127,8 @@ const CompanyDetailPage = () => {
                         name="email"
                         className="form-control"
                         placeholder="Enter Company Email"
+                        value={ediCompany.email}
+                        onChange={handleChange}
                         required
                       />
                     </div>
@@ -108,6 +142,8 @@ const CompanyDetailPage = () => {
                         name="description"
                         className="form-control"
                         placeholder="Enter Description"
+                        value={ediCompany.description}
+                        onChange={handleChange}
                         required
                       />
                     </div>
