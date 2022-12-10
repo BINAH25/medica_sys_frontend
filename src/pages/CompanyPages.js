@@ -98,6 +98,11 @@ const CompanyPages = () => {
     setGetCompanies(res.data);
     setCompany({ dataLoaded: true });
   };
+
+  // VIEW AND UPDDATE COMPANY BY ID
+  const viewCompany = (company_id) => {
+    console.log(company_id);
+  };
   return (
     <section className="content">
       <div className="container-fluid">
@@ -265,7 +270,10 @@ const CompanyPages = () => {
                         <td>{company.description}</td>
                         <td>{new Date(company.added_on).toLocaleString()}</td>
                         <td>
-                          <button className="btn btn-block btn-warning">
+                          <button
+                            className="btn btn-block btn-warning"
+                            onClick={() => viewCompany(company.id)}
+                          >
                             View
                           </button>
                         </td>
