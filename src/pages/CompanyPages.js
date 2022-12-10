@@ -3,6 +3,8 @@ import CompanyAuth from "../auth/CompanyAuth";
 import axios from "axios";
 import Config from "../auth/Config";
 import Auth from "../auth/Auth";
+import { Link } from "react-router-dom";
+
 const CompanyPages = () => {
   const [getCompanies, setGetCompanies] = useState([]);
   const [company, setCompany] = useState({
