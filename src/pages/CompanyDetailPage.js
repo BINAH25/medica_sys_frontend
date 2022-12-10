@@ -1,18 +1,36 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import Config from "../auth/Config";
+import Auth from "../auth/Auth";
 const CompanyDetailPage = () => {
+  const params = useParams();
+  const id = params.id;
+  const [company, setCompany] = useState(null);
+
+  useEffect(() => {
+    getData();
+  }, []);
+  let getData = async () => {
+    let res = await axios.get(Config.companyUrl + id, {
+      headers: { Authorization: "Bearer " + Auth.getLoginToken() },
+    });
+    console.log(res);
+    setCompany(res.data);
+  };
+
   return (
     <section className="content">
       <div className="container-fluid">
         <div className="col-xs-12"></div>
         <div className="block-header">
-          <h2>MANAGE COMPANY</h2>
+          <h2>UPDATE COMPANY</h2>
         </div>
         <div className="row clearfix">
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div className="card">
               <div className="header">
-                <h2>Add Company</h2>
+                <h2>Update Company</h2>
               </div>
               <div className="body">
                 <form method="post">
@@ -111,7 +129,7 @@ const CompanyDetailPage = () => {
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div className="card">
               <div className="header">
-                <h2>All Companies</h2>
+                <h2>Company Detail</h2>
               </div>
               <div className="body table-responsive">
                 <table className="table table-hover">
@@ -128,7 +146,25 @@ const CompanyDetailPage = () => {
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody></tbody>
+                  <tbody>
+                    {company && (
+                      <tr key={company.id}>
+                        <td>{company.id}</td>
+                        <td>{company.name}</td>
+                        <td>{company.license_no}</td>
+                        <td>{company.address}</td>
+                        <td>{company.contact_no}</td>
+                        <td>{company.email}</td>
+                        <td>{company.description}</td>
+                        <td>{new Date(company.added_on).toLocaleString()}</td>
+                        <td>
+                          <button className="btn btn-block btn-danger">
+                            delete
+                          </button>
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
                 </table>
               </div>
             </div>

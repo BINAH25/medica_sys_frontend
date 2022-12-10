@@ -272,12 +272,12 @@ const CompanyPages = () => {
                         <td>{company.description}</td>
                         <td>{new Date(company.added_on).toLocaleString()}</td>
                         <td>
-                          <button
+                          <Link
                             className="btn btn-block btn-warning"
-                            onClick={() => viewCompany(company.id)}
+                            to={`/company/${company.id}`}
                           >
                             View
-                          </button>
+                          </Link>
                         </td>
                       </tr>
                     ))}
