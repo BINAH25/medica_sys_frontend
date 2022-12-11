@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 // MAIN FUNCTION
 const CompanyBankPage = () => {
-  const [getCompanies, setGetCompanies] = useState([]);
+  const [getCompanyBanks, setGetCompanyBanks] = useState([]);
   const [companyBank, setCompanyBank] = useState({
     bank_account_no: "",
     ifsc_no: "",
@@ -82,13 +82,14 @@ const CompanyBankPage = () => {
   };
   //
   useEffect(() => {
-    getAllCompanies();
+    getAllCompanyBanks();
   }, []);
-  let getAllCompanies = async () => {
-    let res = await axios.get(Config.companyUrl, {
+  let getAllCompanyBanks = async () => {
+    let res = await axios.get(Config.companyBankUrl, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
-    setGetCompanies(res.data);
+    console.log(res.data);
+    setGetCompanyBanks(res.data);
     setCompanyBank({ dataLoaded: true });
   };
 
@@ -161,6 +162,67 @@ const CompanyBankPage = () => {
                   </button>
                   <br />
                 </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row clearfix">
+          <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div className="card">
+              <div className="header">
+                {companyBank.dataLoaded == false ? (
+                  <div className="text-center">
+                    <div className="preloader pl-size-xl">
+                      <div className="spinner-layer">
+                        <div className="circle-clipper left">
+                          <div className="circle"></div>
+                        </div>
+                        <div className="circle-clipper right">
+                          <div className="circle"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <h2>All Company Banks</h2>
+              </div>
+              <div className="body table-responsive">
+                <table className="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>#ID</th>
+                      <th>BANK ACCOUNT NO</th>
+                      <th>IFSC NO.</th>
+                      <th>COMPANY ID</th>
+                      <th>COMPANY NAME</th>
+                      <th>ADDED ON</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {getCompanyBanks.map((company_bank) => (
+                      <tr key={company_bank.id}>
+                        <td>{company_bank.id}</td>
+                        <td>{company_bank.bank_account_no}</td>
+                        <td>{company_bank.ifsc_no}</td>
+                        <td>{company_bank.company_id}</td>
+                        <td>{company_bank.company.name}</td>
+                        <td>
+                          {new Date(company_bank.added_on).toLocaleString()}
+                        </td>
+                        <td>
+                          <Link
+                            className="btn btn-block btn-warning"
+                            to={`/company/${company_bank.id}`}
+                          >
+                            View
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
