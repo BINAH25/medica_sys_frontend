@@ -88,7 +88,6 @@ const CompanyBankPage = () => {
     let res = await axios.get(Config.companyBankUrl, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
-    console.log(res.data);
     setGetCompanyBanks(res.data);
     setCompanyBank({ dataLoaded: true });
   };
@@ -207,14 +206,14 @@ const CompanyBankPage = () => {
                         <td>{company_bank.bank_account_no}</td>
                         <td>{company_bank.ifsc_no}</td>
                         <td>{company_bank.company_id}</td>
-                        <td>{company_bank.company.name}</td>
+                        <td>{company_bank.company?.name}</td>
                         <td>
                           {new Date(company_bank.added_on).toLocaleString()}
                         </td>
                         <td>
                           <Link
                             className="btn btn-block btn-warning"
-                            to={`/company/${company_bank.id}`}
+                            to={`/company_bank/${company_bank.id}`}
                           >
                             View
                           </Link>

@@ -4,10 +4,14 @@ import CompanyBankAuth from "../auth/CompanyBankAuth";
 import Auth from "../auth/Auth";
 import Config from "../auth/Config";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const CompanyBankDetailPage = () => {
-  const [getCompanyBanks, setGetCompanyBanks] = useState([]);
-  const [companyBank, setCompanyBank] = useState({
+  const params = useParams();
+  const id = params.id;
+
+  const [companyBank, setCompanyBank] = useState([]);
+  const [updateCompanyBank, setUpdateCompanyBank] = useState({
     bank_account_no: "",
     ifsc_no: "",
     company_id: "",
@@ -20,22 +24,22 @@ const CompanyBankDetailPage = () => {
     let name = event.target.name;
     let value = event.target.value;
 
-    setCompanyBank({ ...companyBank, [name]: value });
+    setUpdateCompanyBank({ ...updateCompanyBank, [name]: value });
   };
 
   // Handle formSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
-    setCompanyBank({
+    setUpdateCompanyBank({
       companyStatus: 1,
     });
     CompanyBankAuth.createCompanyBank(
-      companyBank.bank_account_no,
-      companyBank.ifsc_no,
-      companyBank.company_id,
+      updateCompanyBank.bank_account_no,
+      updateCompanyBank.ifsc_no,
+      updateCompanyBank.company_id,
       handleResponse
     );
-    setCompanyBank({
+    setUpdateCompanyBank({
       bank_account_no: "",
       ifsc_no: "",
       company_id: "",
@@ -45,11 +49,11 @@ const CompanyBankDetailPage = () => {
   // getting login response
   const handleResponse = (data) => {
     if (data.message === "Error, Failed to Add Company Bank..") {
-      setCompanyBank({
+      setUpdateCompanyBank({
         companyStatus: 4,
       });
     } else {
-      setCompanyBank({
+      setUpdateCompanyBank({
         companyStatus: 3,
       });
     }
@@ -57,21 +61,21 @@ const CompanyBankDetailPage = () => {
 
   // getting login message
   const getMessage = () => {
-    if (companyBank.companyStatus === 0) {
+    if (updateCompanyBank.companyStatus === 0) {
       return "";
-    } else if (companyBank.companyStatus === 1) {
+    } else if (updateCompanyBank.companyStatus === 1) {
       return (
         <div className="alert alert-warning">
           <strong>Logging in!</strong> Please Wait...
         </div>
       );
-    } else if (companyBank.companyStatus === 3) {
+    } else if (updateCompanyBank.companyStatus === 3) {
       return (
         <div className="alert alert-success">
           <strong>Company Bank added Successful!</strong>
         </div>
       );
-    } else if (companyBank.companyStatus === 4) {
+    } else if (updateCompanyBank.companyStatus === 4) {
       return (
         <div className="alert alert-danger">
           <strong>Failed to Add Company Bank</strong>
@@ -81,15 +85,19 @@ const CompanyBankDetailPage = () => {
   };
   //
   useEffect(() => {
-    getAllCompanyBanks();
+    getData();
   }, []);
-  let getAllCompanyBanks = async () => {
-    let res = await axios.get(Config.companyBankUrl, {
+  let getData = async () => {
+    let res = await axios.get(Config.companyBankUrl + id, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
     console.log(res.data);
-    setGetCompanyBanks(res.data);
-    setCompanyBank({ dataLoaded: true });
+    setCompanyBank(res.data);
+    setUpdateCompanyBank({
+      bank_account_no: res.data.bank_account_no,
+      ifsc_no: res.data.ifsc_no,
+      company_id: res.data.company_id,
+    });
   };
 
   return (
@@ -97,13 +105,13 @@ const CompanyBankDetailPage = () => {
       <div className="container-fluid">
         <div className="col-xs-12">{getMessage()}</div>
         <div className="block-header">
-          <h2>MANAGE COMPANY BANK</h2>
+          <h2>UPDATE COMPANY BANK</h2>
         </div>
         <div className="row clearfix">
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div className="card">
               <div className="header">
-                <h2>Add Company Bank</h2>
+                <h2>Update Company Bank</h2>
               </div>
               <div className="body">
                 <form method="post" onSubmit={handleSubmit}>
@@ -116,7 +124,7 @@ const CompanyBankDetailPage = () => {
                         name="bank_account_no"
                         className="form-control"
                         placeholder="Enter Company Name"
-                        value={companyBank.bank_account_no}
+                        value={updateCompanyBank.bank_account_no}
                         onChange={handleChange}
                         required
                       />
@@ -131,7 +139,7 @@ const CompanyBankDetailPage = () => {
                         name="ifsc_no"
                         className="form-control"
                         placeholder="Enter License No."
-                        value={companyBank.ifsc_no}
+                        value={updateCompanyBank.ifsc_no}
                         onChange={handleChange}
                         required
                       />
@@ -146,7 +154,7 @@ const CompanyBankDetailPage = () => {
                         name="company_id"
                         className="form-control"
                         placeholder="Enter Company Address"
-                        value={companyBank.company_id}
+                        value={updateCompanyBank.company_id}
                         onChange={handleChange}
                         required
                       />
@@ -157,7 +165,7 @@ const CompanyBankDetailPage = () => {
                     type="submit"
                     className="btn btn-primary m-t-15 waves-effect btn-block"
                   >
-                    Add Company Bank
+                    Update Company Bank
                   </button>
                   <br />
                 </form>
@@ -169,22 +177,6 @@ const CompanyBankDetailPage = () => {
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div className="card">
               <div className="header">
-                {companyBank.dataLoaded == false ? (
-                  <div className="text-center">
-                    <div className="preloader pl-size-xl">
-                      <div className="spinner-layer">
-                        <div className="circle-clipper left">
-                          <div className="circle"></div>
-                        </div>
-                        <div className="circle-clipper right">
-                          <div className="circle"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
                 <h2>All Company Banks</h2>
               </div>
               <div className="body table-responsive">
@@ -200,26 +192,26 @@ const CompanyBankDetailPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {getCompanyBanks.map((company_bank) => (
-                      <tr key={company_bank.id}>
-                        <td>{company_bank.id}</td>
-                        <td>{company_bank.bank_account_no}</td>
-                        <td>{company_bank.ifsc_no}</td>
-                        <td>{company_bank.company_id}</td>
-                        <td>{company_bank.company.name}</td>
+                    {companyBank && (
+                      <tr key={companyBank.id}>
+                        <td>{companyBank.id}</td>
+                        <td>{companyBank.bank_account_no}</td>
+                        <td>{companyBank.ifsc_no}</td>
+                        <td>{companyBank.company_id}</td>
+                        <td>{companyBank.company?.name}</td>
                         <td>
-                          {new Date(company_bank.added_on).toLocaleString()}
+                          {new Date(companyBank.added_on).toLocaleString()}
                         </td>
                         <td>
                           <Link
-                            className="btn btn-block btn-warning"
-                            to={`/company/${company_bank.id}`}
+                            className="btn btn-block btn-danger"
+                            to={`/company/${companyBank.id}`}
                           >
-                            View
+                            Delete
                           </Link>
                         </td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               </div>
