@@ -5,8 +5,7 @@ import GoogleFontLoader from "react-google-font-loader";
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 import Overlay from "../Overlay";
-import CompanyBankPage from "../../pages/CompanyBankPage";
-
+import CompanyBankDetailPage from "../../pages/CompanyBankDetailPage";
 const CompanyBankDetail = () => {
   const [theme, setTheme] = useState({
     bodyClass: "theme-red ls-closed",
@@ -49,7 +48,7 @@ const CompanyBankDetail = () => {
       <Overlay display={theme.displayOverlay} />
       <Navbar onBarClick={onBarClick} />
       <Sidebar />
-      <CompanyBankPage />
+      <CompanyBankDetailPage />
     </>
   );
 };

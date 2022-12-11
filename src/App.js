@@ -4,6 +4,7 @@ import Main from "./components/Main";
 import Company from "./components/company/Company";
 import CompanyDetails from "./components/company/CompanyDetails";
 import CompanyBank from "./components/companyBank/CompanyBank";
+import CompanyBankDetail from "./components/companyBank/CompanyBankDetail";
 function App() {
   return (
     <Router>
@@ -13,6 +14,7 @@ function App() {
         <Route element={<Company />} path="/company" />
         <Route element={<CompanyDetails />} path="/company/:id" />
         <Route element={<CompanyBank />} path="/company_bank" />
+        <Route element={<CompanyBankDetail />} path="/company_bank/:id" />
       </Routes>
     </Router>
   );
