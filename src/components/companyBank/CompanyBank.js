@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "adminbsb-materialdesign/css/themes/all-themes.css";
 import GoogleFontLoader from "react-google-font-loader";
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 import Overlay from "../Overlay";
+import CompanyBankPage from "../../pages/CompanyBankPage";
+//main function
 const CompanyBank = () => {
   const [theme, setTheme] = useState({
     bodyClass: "theme-red ls-closed",
@@ -46,7 +48,7 @@ const CompanyBank = () => {
       <Overlay display={theme.displayOverlay} />
       <Navbar onBarClick={onBarClick} />
       <Sidebar />
-      <CompanyPages />
+      <CompanyBankPage />
     </>
   );
 };

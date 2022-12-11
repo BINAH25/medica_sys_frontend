@@ -21,7 +21,7 @@ class Config {
     {
       index: "2",
       title: "Company Bank",
-      url: "/company",
+      url: "/company_bank",
       icons: "assessment",
     },
   ];
