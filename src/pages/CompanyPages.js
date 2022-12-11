@@ -100,10 +100,6 @@ const CompanyPages = () => {
     setCompany({ dataLoaded: true });
   };
 
-  // VIEW AND UPDDATE COMPANY BY ID
-  const viewCompany = (company_id) => {
-    console.log(company_id);
-  };
   return (
     <section className="content">
       <div className="container-fluid">

@@ -3,10 +3,16 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Config from "../auth/Config";
 import Auth from "../auth/Auth";
+import CompanyAuth from "../auth/CompanyAuth";
+
+// main function
 const CompanyDetailPage = () => {
   const params = useParams();
   const id = params.id;
+  // useState for getting company
   const [company, setCompany] = useState(null);
+
+  // useState for updating company
   const [ediCompany, setEditCompany] = useState({
     name: "",
     license_no: "",
@@ -16,8 +22,8 @@ const CompanyDetailPage = () => {
     description: "",
     companyStatus: 0,
   });
-  // Handle Inputs
 
+  // Handle Inputs
   const handleChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;
@@ -25,9 +31,12 @@ const CompanyDetailPage = () => {
     setEditCompany({ ...ediCompany, [name]: value });
   };
 
+  // calling the fetched data function
   useEffect(() => {
     getData();
   }, []);
+
+  // fetching data from the api
   let getData = async () => {
     let res = await axios.get(Config.companyUrl + id, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
@@ -43,10 +52,74 @@ const CompanyDetailPage = () => {
     });
   };
 
+  // Handle formSubmit for company update
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setEditCompany({
+      companyStatus: 1,
+    });
+    CompanyAuth.editCompany(
+      ediCompany.name,
+      ediCompany.license_no,
+      ediCompany.address,
+      ediCompany.contact_no,
+      ediCompany.email,
+      ediCompany.description,
+      id,
+      handleResponse
+    );
+    setEditCompany({
+      name: "",
+      license_no: "",
+      address: "",
+      contact_no: "",
+      email: "",
+      description: "",
+    });
+  };
+
+  // getting login response
+  const handleResponse = (data) => {
+    console.log(data);
+    if (data.message === "Error, Failed to Update Company..") {
+      setEditCompany({
+        companyStatus: 4,
+      });
+    } else {
+      setEditCompany({
+        companyStatus: 3,
+      });
+    }
+  };
+
+  // getting login message
+  const getMessage = () => {
+    if (ediCompany.companyStatus === 0) {
+      return "";
+    } else if (ediCompany.companyStatus === 1) {
+      return (
+        <div className="alert alert-warning">
+          <strong>Logging in!</strong> Please Wait...
+        </div>
+      );
+    } else if (ediCompany.companyStatus === 3) {
+      return (
+        <div className="alert alert-success">
+          <strong>Company added Successful!</strong>
+        </div>
+      );
+    } else if (ediCompany.companyStatus === 4) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Failed to Add Company</strong>
+        </div>
+      );
+    }
+  };
+
   return (
     <section className="content">
       <div className="container-fluid">
-        <div className="col-xs-12"></div>
         <div className="block-header">
           <h2>UPDATE COMPANY</h2>
         </div>
@@ -57,7 +130,7 @@ const CompanyDetailPage = () => {
                 <h2>Update Company</h2>
               </div>
               <div className="body">
-                <form method="post">
+                <form method="post" onSubmit={handleSubmit}>
                   <label htmlFor="email_address">Name</label>
                   <div className="form-group">
                     <div className="form-line">
@@ -153,10 +226,11 @@ const CompanyDetailPage = () => {
                     type="submit"
                     className="btn btn-primary m-t-15 waves-effect btn-block"
                   >
-                    Add Company
+                    Update Company
                   </button>
                   <br />
                 </form>
+                <div className="col-xs-12">{getMessage()}</div>
               </div>
             </div>
           </div>
