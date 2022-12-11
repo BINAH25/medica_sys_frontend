@@ -33,10 +33,11 @@ const CompanyBankDetailPage = () => {
     setUpdateCompanyBank({
       companyStatus: 1,
     });
-    CompanyBankAuth.createCompanyBank(
+    CompanyBankAuth.editCompanyBank(
       updateCompanyBank.bank_account_no,
       updateCompanyBank.ifsc_no,
       updateCompanyBank.company_id,
+      id,
       handleResponse
     );
     setUpdateCompanyBank({
@@ -48,7 +49,7 @@ const CompanyBankDetailPage = () => {
 
   // getting login response
   const handleResponse = (data) => {
-    if (data.message === "Error, Failed to Add Company Bank..") {
+    if (data.message === "Error, Failed to Update Company..") {
       setUpdateCompanyBank({
         companyStatus: 4,
       });
@@ -72,13 +73,13 @@ const CompanyBankDetailPage = () => {
     } else if (updateCompanyBank.companyStatus === 3) {
       return (
         <div className="alert alert-success">
-          <strong>Company Bank added Successful!</strong>
+          <strong>Company Bank Updated Successful!</strong>
         </div>
       );
     } else if (updateCompanyBank.companyStatus === 4) {
       return (
         <div className="alert alert-danger">
-          <strong>Failed to Add Company Bank</strong>
+          <strong>Failed to Update Company Bank</strong>
         </div>
       );
     }
@@ -103,7 +104,6 @@ const CompanyBankDetailPage = () => {
   return (
     <section className="content">
       <div className="container-fluid">
-        <div className="col-xs-12">{getMessage()}</div>
         <div className="block-header">
           <h2>UPDATE COMPANY BANK</h2>
         </div>
@@ -169,6 +169,7 @@ const CompanyBankDetailPage = () => {
                   </button>
                   <br />
                 </form>
+                <div className="col-xs-12">{getMessage()}</div>
               </div>
             </div>
           </div>
