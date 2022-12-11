@@ -2,6 +2,7 @@ class Config {
   static loginUrl = "http://127.0.0.1:8000/token/";
   static homeUrl = "/home";
   static companyUrl = "http://127.0.0.1:8000/api/company/";
+  static companyBankUrl = "http://127.0.0.1:8000/api/company_bank/";
 
   // SIDE BAR URLS
   static sidebarItem = [
@@ -14,6 +15,12 @@ class Config {
     {
       index: "1",
       title: "Company",
+      url: "/company",
+      icons: "assessment",
+    },
+    {
+      index: "2",
+      title: "Company Bank",
       url: "/company",
       icons: "assessment",
     },
