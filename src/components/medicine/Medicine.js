@@ -4,6 +4,7 @@ import { useState } from "react";
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 import Overlay from "../Overlay";
+import MedicinePage from "../../pages/MedicinePage";
 // main function
 const Medicine = () => {
   const [theme, setTheme] = useState({
@@ -47,7 +48,7 @@ const Medicine = () => {
       <Overlay display={theme.displayOverlay} />
       <Navbar onBarClick={onBarClick} />
       <Sidebar />
-      <CompanyPages />
+      <MedicinePage />
     </>
   );
 };

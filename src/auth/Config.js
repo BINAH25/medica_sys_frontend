@@ -24,6 +24,12 @@ class Config {
       url: "/company_bank",
       icons: "assessment",
     },
+    {
+      index: "3",
+      title: "Add Medicine",
+      url: "/medicine",
+      icons: "assessment",
+    },
   ];
 }
 export default Config;
