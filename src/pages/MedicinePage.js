@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import CompanyAuth from "../auth/CompanyAuth";
 import axios from "axios";
 import Config from "../auth/Config";
 import Auth from "../auth/Auth";
 import { Link } from "react-router-dom";
+import MedicineAuth from "../auth/MedicineAuth";
 
 const MedicinePage = () => {
   const [getCompanies, setGetCompanies] = useState([]);
@@ -40,10 +40,11 @@ const MedicinePage = () => {
     setMedicine({
       companyStatus: 1,
     });
-    CompanyAuth.companyCreate(
+    MedicineAuth.createMedicine(
       medicine.name,
       medicine.medical_typ,
       medicine.buy_price,
+      medicine.sell_price,
       medicine.s_gst,
       medicine.c_gst,
       medicine.batch_no,
@@ -52,9 +53,8 @@ const MedicinePage = () => {
       medicine.mfg_date,
       medicine.company_id,
       medicine.description,
-      medicine.description,
-      medicine.qty_in_strip,
-      handleResponse
+      medicine.in_stock_total,
+      medicine.qty_in_strip
     );
     setMedicine({
       name: "",
@@ -72,11 +72,12 @@ const MedicinePage = () => {
       description: "",
       qty_in_strip: "",
     });
+    console.log(medicine);
   };
 
   // getting login response
   const handleResponse = (data) => {
-    if (data.message === "Error, Failed to Add Company..") {
+    if (data.message === "Failed,To add Medicine...") {
       setMedicine({
         companyStatus: 4,
       });
@@ -100,13 +101,13 @@ const MedicinePage = () => {
     } else if (medicine.companyStatus === 3) {
       return (
         <div className="alert alert-success">
-          <strong>Company added Successful!</strong>
+          <strong>Medicine added Successful!</strong>
         </div>
       );
     } else if (medicine.companyStatus === 4) {
       return (
         <div className="alert alert-danger">
-          <strong>Failed to Add Company</strong>
+          <strong>Failed to Add Medicine</strong>
         </div>
       );
     }
@@ -262,7 +263,7 @@ const MedicinePage = () => {
                   <div className="form-group">
                     <div className="form-line">
                       <input
-                        type="text"
+                        type="date"
                         id="expire_date"
                         name="expire_date"
                         className="form-control"
@@ -277,7 +278,7 @@ const MedicinePage = () => {
                   <div className="form-group">
                     <div className="form-line">
                       <input
-                        type="text"
+                        type="date"
                         id="mfg_date"
                         name="mfg_date"
                         className="form-control"
@@ -290,18 +291,19 @@ const MedicinePage = () => {
                   </div>
                   <label htmlFor="email_address">Company</label>
                   <div className="form-group">
-                    <div className="form-line">
-                      <input
-                        type="text"
-                        id="company_id"
-                        name="company_id"
-                        className="form-control"
-                        placeholder="Enter Description"
-                        value={medicine.s_gst}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
+                    <select
+                      className="form-control show-tick"
+                      name="company_id"
+                      id="company_id"
+                      onChange={handleChange}
+                      value={medicine.company_id}
+                    >
+                      {getCompanies.map((company) => (
+                        <option key={company.id} value={company.id}>
+                          {company.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <label htmlFor="email_address">description</label>
                   <div className="form-group">

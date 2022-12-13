@@ -16,8 +16,7 @@ class MedicineAuth {
     company_id,
     description,
     in_stock_total,
-    qty_in_strip,
-    callback
+    qty_in_strip
   ) => {
     axios
       .post(
@@ -42,14 +41,12 @@ class MedicineAuth {
       )
       .then(function (response) {
         if (response.status === 200) {
-          callback({ error: "false", message: "Medicine added Successful..." });
+          console.log(response);
+          console.log("Medicine Added Successful...");
         }
       })
       .catch(function (error) {
-        callback({
-          error: "true",
-          message: "Error, Failed to Add Medicine..",
-        });
+        console.log(error);
       });
   };
 
@@ -68,6 +65,7 @@ class MedicineAuth {
     description,
     in_stock_total,
     qty_in_strip,
+    id,
     callback
   ) => {
     axios
@@ -93,17 +91,11 @@ class MedicineAuth {
       )
       .then(function (response) {
         if (response.status === 200) {
-          callback({
-            error: "false",
-            message: "Medicine Updated Successful...",
-          });
+          console.log("Medicine Added Successful...");
         }
       })
       .catch(function (error) {
-        callback({
-          error: "true",
-          message: "Error, Failed to Update Medicine..",
-        });
+        console.log("failed To Add Medicine ...");
       });
   };
 }

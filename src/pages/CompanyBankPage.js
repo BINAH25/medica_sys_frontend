@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 // MAIN FUNCTION
 const CompanyBankPage = () => {
   const [getCompanyBanks, setGetCompanyBanks] = useState([]);
+  const [getCompanies, setGetCompanies] = useState([]);
   const [companyBank, setCompanyBank] = useState({
     bank_account_no: "",
     ifsc_no: "",
@@ -91,6 +92,15 @@ const CompanyBankPage = () => {
     setGetCompanyBanks(res.data);
     setCompanyBank({ dataLoaded: true });
   };
+  useEffect(() => {
+    getAllCompanies();
+  }, []);
+  let getAllCompanies = async () => {
+    let res = await axios.get(Config.companyUrl, {
+      headers: { Authorization: "Bearer " + Auth.getLoginToken() },
+    });
+    setGetCompanies(res.data);
+  };
 
   return (
     <section className="content">
@@ -137,21 +147,22 @@ const CompanyBankPage = () => {
                       />
                     </div>
                   </div>
-                  <label htmlFor="email_address">COMPANY ID</label>
+                  <label htmlFor="email_address">Company</label>
                   <div className="form-group">
-                    <div className="form-line">
-                      <input
-                        type="text"
-                        id="company_id"
-                        name="company_id"
-                        className="form-control"
-                        placeholder="Enter Company Address"
-                        value={companyBank.company_id}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                  </div>
+                    <select
+                      className="form-control show-tick"
+                      name="company_id"
+                      id="company_id"
+                      onChange={handleChange}
+                      value={companyBank.company_id}
+                    >
+                      {getCompanies.map((company) => (
+                        <option key={company.id} value={company.id}>
+                          {company.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>{" "}
                   <br />
                   <button
                     type="submit"
