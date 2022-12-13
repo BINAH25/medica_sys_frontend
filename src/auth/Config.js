@@ -3,6 +3,7 @@ class Config {
   static homeUrl = "/home";
   static companyUrl = "http://127.0.0.1:8000/api/company/";
   static companyBankUrl = "http://127.0.0.1:8000/api/company_bank/";
+  static medicineUrl = "http://127.0.0.1:8000/api/medicine/";
 
   // SIDE BAR URLS
   static sidebarItem = [
