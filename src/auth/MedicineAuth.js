@@ -97,11 +97,17 @@ class MedicineAuth {
       )
       .then(function (response) {
         if (response.status === 200) {
-          console.log("Medicine Added Successful...");
+          callback({
+            error: "false",
+            message: "Medicine Updated Successful...",
+          });
         }
       })
       .catch(function (error) {
-        console.log("failed To Add Medicine ...");
+        callback({
+          error: "true",
+          message: "Error, Failed to Update Medicine..",
+        });
       });
   };
 }

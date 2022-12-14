@@ -34,7 +34,7 @@ const CompanyDetailPage = () => {
   // calling the fetched data function
   useEffect(() => {
     getData();
-  }, []);
+  }, [id]);
 
   // fetching data from the api
   let getData = async () => {

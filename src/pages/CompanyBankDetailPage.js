@@ -87,12 +87,11 @@ const CompanyBankDetailPage = () => {
   //
   useEffect(() => {
     getData();
-  }, []);
+  }, [id]);
   let getData = async () => {
     let res = await axios.get(Config.companyBankUrl + id, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
-    console.log(res.data);
     setCompanyBank(res.data);
     setUpdateCompanyBank({
       bank_account_no: res.data.bank_account_no,
