@@ -6,7 +6,11 @@ import { Link } from "react-router-dom";
 import MedicineAuth from "../auth/MedicineAuth";
 
 const MedicinePage = () => {
+  // get all company
   const [getCompanies, setGetCompanies] = useState([]);
+  // get all medicine
+  const [getMedicine, setGetMedicine] = useState([]);
+  // creating a new medicine
   const [medicine, setMedicine] = useState({
     name: "",
     medical_typ: "",
@@ -112,7 +116,7 @@ const MedicinePage = () => {
       );
     }
   };
-  //
+  // getting all companies
   useEffect(() => {
     getAllCompanies();
   }, []);
@@ -121,9 +125,18 @@ const MedicinePage = () => {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
     setGetCompanies(res.data);
+  };
+  // getting all medicines
+  useEffect(() => {
+    getAllMedicines();
+  }, []);
+  const getAllMedicines = async () => {
+    let response = await axios.get(Config.medicineUrl, {
+      headers: { Authorization: "Bearer " + Auth.getLoginToken() },
+    });
+    setGetMedicine(response.data);
     setMedicine({ dataLoaded: true });
   };
-
   return (
     <section className="content">
       <div className="container-fluid">
@@ -391,30 +404,44 @@ const MedicinePage = () => {
                     <tr>
                       <th>#ID</th>
                       <th>NAME</th>
-                      <th>License NO.</th>
-                      <th>Address</th>
-                      <th>Contact</th>
-                      <th>Email</th>
+                      <th>medical_typ</th>
+                      <th>buy_price</th>
+                      <th>sell_price</th>
+                      <th>c_gst</th>
+                      <th>s_gst</th>
+                      <th>batch_no</th>
+                      <th>shelf_no</th>
+                      <th>expire_date</th>
+                      <th>mfg_date</th>
+                      <th>company_id</th>
                       <th>Description</th>
-                      <th>Added On</th>
+                      <th>in_stock_total</th>
+                      <th>Added_on</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {getCompanies.map((company) => (
-                      <tr key={company.id}>
-                        <td>{company.id}</td>
-                        <td>{company.name}</td>
-                        <td>{company.license_no}</td>
-                        <td>{company.address}</td>
-                        <td>{company.contact_no}</td>
-                        <td>{company.email}</td>
-                        <td>{company.description}</td>
-                        <td>{new Date(company.added_on).toLocaleString()}</td>
+                    {getMedicine.map((medicine, index) => (
+                      <tr key={index}>
+                        <td>{medicine.id}</td>
+                        <td>{medicine.name}</td>
+                        <td>{medicine.medical_typ}</td>
+                        <td>{medicine.buy_price}</td>
+                        <td>{medicine.sell_price}</td>
+                        <td>{medicine.c_gst}</td>
+                        <td>{medicine.s_gst}</td>
+                        <td>{medicine.batch_no}</td>
+                        <td>{medicine.shelf_no}</td>
+                        <td>{medicine.expire_date}</td>
+                        <td>{medicine.mfg_date}</td>
+                        <td>{medicine.company?.name}</td>
+                        <td>{medicine.description}</td>
+                        <td>{medicine.in_stock_total}</td>
+                        <td>{new Date(medicine.added_on).toLocaleString()}</td>
                         <td>
                           <Link
                             className="btn btn-block btn-warning"
-                            to={`/company/${company.id}`}
+                            to={`/company/${medicine.id}`}
                           >
                             View
                           </Link>
