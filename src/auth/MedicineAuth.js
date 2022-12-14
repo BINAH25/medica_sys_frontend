@@ -96,6 +96,7 @@ class MedicineAuth {
         { headers: { Authorization: "Bearer " + Auth.getLoginToken() } }
       )
       .then(function (response) {
+        console.log(response);
         if (response.status === 200) {
           callback({
             error: "false",

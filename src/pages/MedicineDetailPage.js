@@ -158,7 +158,323 @@ const MedicineDetailPage = () => {
     });
   };
 
-  return <div>MedicineDetailPage</div>;
+  return (
+    <section className="content">
+      <div className="container-fluid">
+        <div className="block-header">
+          <h2>UPDATE MEDICINE</h2>
+        </div>
+        <div className="row clearfix">
+          <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div className="card">
+              <div className="header">
+                <h2>Update Medicine</h2>
+              </div>
+              <div className="body">
+                <form method="post" onSubmit={handleSubmit}>
+                  <label htmlFor="email_address">Name</label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        className="form-control"
+                        placeholder="Enter Medicine Name"
+                        value={updateMedicine.name}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address">Medical Type.</label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="medical_typ"
+                        name="medical_typ"
+                        className="form-control"
+                        placeholder="Enter Medical Type ."
+                        value={updateMedicine.medical_typ}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address">Buy Price</label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="buy_price"
+                        name="buy_price"
+                        className="form-control"
+                        placeholder="Enter Buy Price"
+                        value={updateMedicine.buy_price}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address">Sell Price</label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="sell_price"
+                        name="sell_price"
+                        className="form-control"
+                        placeholder="Enter Sell Price"
+                        value={updateMedicine.sell_price}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address">c_gst</label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="c_gst"
+                        name="c_gst"
+                        className="form-control"
+                        placeholder="Enter c_gst "
+                        value={updateMedicine.c_gst}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address">s_gst</label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="s_gst"
+                        name="s_gst"
+                        className="form-control"
+                        placeholder="Enter s_gst"
+                        value={updateMedicine.s_gst}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address">Batch No.</label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="batch_no"
+                        name="batch_no"
+                        className="form-control"
+                        placeholder="Enter Batch No"
+                        value={updateMedicine.batch_no}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address">Shelf No.</label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="shelf_no"
+                        name="shelf_no"
+                        className="form-control"
+                        placeholder="Enter Shelf No."
+                        value={updateMedicine.shelf_no}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address">Expire Date</label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="date"
+                        id="expire_date"
+                        name="expire_date"
+                        className="form-control"
+                        placeholder="Enter Expire Date"
+                        value={updateMedicine.expire_date}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address">Mfg Date</label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="date"
+                        id="mfg_date"
+                        name="mfg_date"
+                        className="form-control"
+                        placeholder="Enter Mfg Date"
+                        value={updateMedicine.mfg_date}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address">Company</label>
+                  <div className="form-group">
+                    <select
+                      className="form-control show-tick"
+                      name="company_id"
+                      id="company_id"
+                      onChange={handleChange}
+                      value={updateMedicine.company_id}
+                    >
+                      {getCompanies.map((company) => (
+                        <option key={company.id} value={company.id}>
+                          {company.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <label htmlFor="email_address">description</label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        className="form-control"
+                        placeholder="Enter Description"
+                        value={updateMedicine.description}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address">In Stock Total</label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="in_stock_total"
+                        name="in_stock_total"
+                        className="form-control"
+                        placeholder="Enter In Stock Total"
+                        value={updateMedicine.in_stock_total}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address"> Qty In Strip </label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="qty_in_strip"
+                        name="qty_in_strip"
+                        className="form-control"
+                        placeholder="Enter Qty In Strip"
+                        value={updateMedicine.qty_in_strip}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <br />
+                  <button
+                    type="submit"
+                    className="btn btn-primary m-t-15 waves-effect btn-block"
+                  >
+                    Update Medicine
+                  </button>
+                  <br />
+                </form>
+                <div className="col-xs-12">{getMessage()}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row clearfix">
+          <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div className="card">
+              <div className="header">
+                {updateMedicine.dataLoaded == false ? (
+                  <div className="text-center">
+                    <div className="preloader pl-size-xl">
+                      <div className="spinner-layer">
+                        <div className="circle-clipper left">
+                          <div className="circle"></div>
+                        </div>
+                        <div className="circle-clipper right">
+                          <div className="circle"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <h2>All Medicine</h2>
+              </div>
+              <div className="body table-responsive">
+                <table className="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>#ID</th>
+                      <th>NAME</th>
+                      <th>medical_typ</th>
+                      <th>buy_price</th>
+                      <th>sell_price</th>
+                      <th>c_gst</th>
+                      <th>s_gst</th>
+                      <th>batch_no</th>
+                      <th>shelf_no</th>
+                      <th>expire_date</th>
+                      <th>mfg_date</th>
+                      <th>company_id</th>
+                      <th>Description</th>
+                      <th>in_stock_total</th>
+                      <th>Added_on</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {medicine && (
+                      <tr>
+                        <td>{medicine.id}</td>
+                        <td>{medicine.name}</td>
+                        <td>{medicine.medical_typ}</td>
+                        <td>{medicine.buy_price}</td>
+                        <td>{medicine.sell_price}</td>
+                        <td>{medicine.c_gst}</td>
+                        <td>{medicine.s_gst}</td>
+                        <td>{medicine.batch_no}</td>
+                        <td>{medicine.shelf_no}</td>
+                        <td>{medicine.expire_date}</td>
+                        <td>{medicine.mfg_date}</td>
+                        <td>{medicine.company?.name}</td>
+                        <td>{medicine.description}</td>
+                        <td>{medicine.in_stock_total}</td>
+                        <td>{new Date(medicine.added_on).toLocaleString()}</td>
+                        <td>
+                          <button className="btn btn-block btn-danger">
+                            delete
+                          </button>
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default MedicineDetailPage;
