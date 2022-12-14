@@ -54,7 +54,8 @@ const MedicinePage = () => {
       medicine.company_id,
       medicine.description,
       medicine.in_stock_total,
-      medicine.qty_in_strip
+      medicine.qty_in_strip,
+      handleResponse
     );
     setMedicine({
       name: "",
@@ -72,12 +73,11 @@ const MedicinePage = () => {
       description: "",
       qty_in_strip: "",
     });
-    console.log(medicine);
   };
 
   // getting login response
   const handleResponse = (data) => {
-    if (data.message === "Failed,To add Medicine...") {
+    if (data.message === "Error, Failed to add Medicine..") {
       setMedicine({
         companyStatus: 4,
       });
@@ -127,7 +127,6 @@ const MedicinePage = () => {
   return (
     <section className="content">
       <div className="container-fluid">
-        <div className="col-xs-12">{getMessage()}</div>
         <div className="block-header">
           <h2>MANAGE MEDICINE</h2>
         </div>
@@ -359,6 +358,7 @@ const MedicinePage = () => {
                   </button>
                   <br />
                 </form>
+                <div className="col-xs-12">{getMessage()}</div>
               </div>
             </div>
           </div>
