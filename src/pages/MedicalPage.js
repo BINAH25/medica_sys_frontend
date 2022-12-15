@@ -1,4 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Auth from "../auth/Auth";
+import Config from "../auth/Config";
+import { Link } from "react-router-dom";
+import MedicalAuth from "../auth/MedicalAuth";
 
 const MedicalPage = () => {
   const [getMedicals, setGetMedicals] = useState([]);
@@ -27,7 +32,7 @@ const MedicalPage = () => {
     setMedical({
       companyStatus: 1,
     });
-    CompanyBankAuth.createCompanyBank(
+    MedicalAuth.createMedical(
       medical.medicine_id,
       medical.salt_name,
       medical.salt_qty,
@@ -86,7 +91,7 @@ const MedicalPage = () => {
     getAllMedicals();
   }, []);
   let getAllMedicals = async () => {
-    let res = await axios.get(Config.companyBankUrl, {
+    let res = await axios.get(Config.medicalUrl, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
     setGetMedicals(res.data);
@@ -97,7 +102,7 @@ const MedicalPage = () => {
     getAllMedicines();
   }, []);
   let getAllMedicines = async () => {
-    let res = await axios.get(Config.companyUrl, {
+    let res = await axios.get(Config.medicineUrl, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
     setGetMedicine(res.data);

@@ -32,6 +32,12 @@ class Config {
       url: "/medicine",
       icons: "assessment",
     },
+    {
+      index: "4",
+      title: "Add Medical",
+      url: "/medical",
+      icons: "assessment",
+    },
   ];
 }
 export default Config;
