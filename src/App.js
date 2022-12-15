@@ -8,6 +8,7 @@ import CompanyBankDetail from "./components/companyBank/CompanyBankDetail";
 import Medicine from "./components/medicine/Medicine";
 import MedicineDetail from "./components/medicine/MedicineDetail";
 import Medical from "./components/medical/Medical";
+import MedicalDetail from "./components/medical/MedicalDetail";
 function App() {
   return (
     <Router>
@@ -21,6 +22,7 @@ function App() {
         <Route element={<Medicine />} path="/medicine" />
         <Route element={<MedicineDetail />} path="/medicine/:id" />
         <Route element={<Medical />} path="/medical" />
+        <Route element={<MedicalDetail />} path="/medical/:id" />
       </Routes>
     </Router>
   );
