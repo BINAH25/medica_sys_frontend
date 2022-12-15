@@ -264,7 +264,7 @@ const MedicalPage = () => {
                         <td>
                           <Link
                             className="btn btn-block btn-warning"
-                            to={`/company_bank/${medical.id}`}
+                            to={`/medical/${medical.id}`}
                           >
                             View
                           </Link>
