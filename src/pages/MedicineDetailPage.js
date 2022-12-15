@@ -150,7 +150,7 @@ const MedicineDetailPage = () => {
       shelf_no: response.data.shelf_no,
       expire_date: response.data.expire_date,
       mfg_date: response.data.mfg_date,
-      company_id: "",
+      company_id: response.data.company_id,
       description: response.data.description,
       in_stock_total: response.data.in_stock_total,
       qty_in_strip: response.data.qty_in_strip,
