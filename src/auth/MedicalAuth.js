@@ -24,6 +24,7 @@ class MedicalAuth {
       )
       .then(function (response) {
         if (response.status === 200) {
+          console.log(response);
           callback({
             error: "false",
             message: "Medical Added Successful...",

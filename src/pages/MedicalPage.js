@@ -47,6 +47,7 @@ const MedicalPage = () => {
       salt_qty_type: "",
       description: "",
     });
+    console.log(medical);
   };
 
   // getting login response
@@ -91,10 +92,10 @@ const MedicalPage = () => {
     getAllMedicals();
   }, []);
   let getAllMedicals = async () => {
-    let res = await axios.get(Config.medicalUrl, {
+    let response = await axios.get(Config.medicalUrl, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
-    setGetMedicals(res.data);
+    setGetMedicals(response.data);
     setMedical({ dataLoaded: true });
   };
   //getting all medicines
@@ -108,7 +109,177 @@ const MedicalPage = () => {
     setGetMedicine(res.data);
   };
 
-  return <div>MedicalPage</div>;
+  return (
+    <section className="content">
+      <div className="container-fluid">
+        <div className="col-xs-12">{getMessage()}</div>
+        <div className="block-header">
+          <h2>MANAGE MEDICAL</h2>
+        </div>
+        <div className="row clearfix">
+          <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div className="card">
+              <div className="header">
+                <h2>Add Medical</h2>
+              </div>
+              <div className="body">
+                <form method="post" onSubmit={handleSubmit}>
+                  <label htmlFor="email_address">Medicine</label>
+                  <div className="form-group">
+                    <select
+                      className="form-control show-tick"
+                      name="medicine_id"
+                      id="medicine_id"
+                      onChange={handleChange}
+                      value={medical.medicine_id}
+                    >
+                      {getMedicine.map((medicine) => (
+                        <option key={medicine.id} value={medicine.id}>
+                          {medicine.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <label htmlFor="email_address">salt_name </label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="salt_name"
+                        name="salt_name"
+                        className="form-control"
+                        placeholder="Enter salt_name "
+                        value={medical.salt_name}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address">salt_qty </label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="salt_qty"
+                        name="salt_qty"
+                        className="form-control"
+                        placeholder="Enter salt_qty ."
+                        value={medical.salt_qty}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address">salt_qty_type</label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="salt_qty_type"
+                        name="salt_qty_type"
+                        className="form-control"
+                        placeholder="Enter salt_qty_type."
+                        value={medical.salt_qty_type}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <label htmlFor="email_address">Description</label>
+                  <div className="form-group">
+                    <div className="form-line">
+                      <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        className="form-control"
+                        placeholder="Enter description."
+                        value={medical.description}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <br />
+                  <button
+                    type="submit"
+                    className="btn btn-primary m-t-15 waves-effect btn-block"
+                  >
+                    Add Medical
+                  </button>
+                  <br />
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row clearfix">
+          <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div className="card">
+              <div className="header">
+                {medical.dataLoaded == false ? (
+                  <div className="text-center">
+                    <div className="preloader pl-size-xl">
+                      <div className="spinner-layer">
+                        <div className="circle-clipper left">
+                          <div className="circle"></div>
+                        </div>
+                        <div className="circle-clipper right">
+                          <div className="circle"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <h2>All Medical</h2>
+              </div>
+              <div className="body table-responsive">
+                <table className="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>#ID</th>
+                      <th>SALT NAME</th>
+                      <th>SALT QTY</th>
+                      <th>SALT QTY TYPE</th>
+                      <th>DESCRIPTION</th>
+                      <th>MEDICINE ID</th>
+                      <th>MEDICINE NAME</th>
+                      <th>ADDED ON</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {getMedicals.map((medical, index) => (
+                      <tr key={index}>
+                        <td>{medical.id}</td>
+                        <td>{medical.salt_name}</td>
+                        <td>{medical.salt_qty}</td>
+                        <td>{medical.salt_qty_type}</td>
+                        <td>{medical.description}</td>
+                        <td>{medical.medicine_id}</td>
+                        <td>{medical.medicine.name}</td>
+                        <td>{new Date(medical.added_on).toLocaleString()}</td>
+                        <td>
+                          <Link
+                            className="btn btn-block btn-warning"
+                            to={`/company_bank/${medical.id}`}
+                          >
+                            View
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default MedicalPage;
