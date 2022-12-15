@@ -46,7 +46,7 @@ const MedicalPage = () => {
 
   // getting login response
   const handleResponse = (data) => {
-    if (data.message === "Error, Failed to Add Company Bank..") {
+    if (data.message === "Error, Failed to add Medical..") {
       setMedical({
         companyStatus: 4,
       });
@@ -70,13 +70,13 @@ const MedicalPage = () => {
     } else if (medical.companyStatus === 3) {
       return (
         <div className="alert alert-success">
-          <strong>Company Bank added Successful!</strong>
+          <strong>Medical added Successful!</strong>
         </div>
       );
     } else if (medical.companyStatus === 4) {
       return (
         <div className="alert alert-danger">
-          <strong>Failed to Add Company Bank</strong>
+          <strong>Failed to Add Medical </strong>
         </div>
       );
     }

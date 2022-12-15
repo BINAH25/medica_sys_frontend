@@ -12,22 +12,13 @@ class MedicalAuth {
   ) => {
     axios
       .post(
-        Config.medicineUrl,
+        Config.medicalUrl,
         {
-          name: name,
-          medical_typ: medical_typ,
-          buy_price: buy_price,
-          sell_price: sell_price,
-          c_gst: c_gst,
-          s_gst: s_gst,
-          batch_no: batch_no,
-          shelf_no: shelf_no,
-          expire_date: expire_date,
-          mfg_date: mfg_date,
-          company_id: company_id,
+          medicine_id: medicine_id,
+          salt_name: salt_name,
+          salt_qty: salt_qty,
+          salt_qty_type: salt_qty_type,
           description: description,
-          in_stock_total: in_stock_total,
-          qty_in_strip: qty_in_strip,
         },
         { headers: { Authorization: "Bearer " + Auth.getLoginToken() } }
       )
@@ -35,54 +26,36 @@ class MedicalAuth {
         if (response.status === 200) {
           callback({
             error: "false",
-            message: "Medicine Added Successful...",
+            message: "Medical Added Successful...",
           });
         }
       })
       .catch(function (error) {
         callback({
           error: "true",
-          message: "Error, Failed to add Medicine..",
+          message: "Error, Failed to add Medical..",
         });
       });
   };
 
-  static editMedicine = (
-    name,
-    medical_typ,
-    buy_price,
-    sell_price,
-    c_gst,
-    s_gst,
-    batch_no,
-    shelf_no,
-    expire_date,
-    mfg_date,
-    company_id,
+  static editMedical = (
+    medicine_id,
+    salt_name,
+    salt_qty,
+    salt_qty_type,
     description,
-    in_stock_total,
-    qty_in_strip,
     id,
     callback
   ) => {
     axios
       .put(
-        Config.medicineUrl + id + "/",
+        Config.medicalUrl + id + "/",
         {
-          name: name,
-          medical_typ: medical_typ,
-          buy_price: buy_price,
-          sell_price: sell_price,
-          c_gst: c_gst,
-          s_gst: s_gst,
-          batch_no: batch_no,
-          shelf_no: shelf_no,
-          expire_date: expire_date,
-          mfg_date: mfg_date,
-          company_id: company_id,
+          medicine_id: medicine_id,
+          salt_name: salt_name,
+          salt_qty: salt_qty,
+          salt_qty_type: salt_qty_type,
           description: description,
-          in_stock_total: in_stock_total,
-          qty_in_strip: qty_in_strip,
         },
         { headers: { Authorization: "Bearer " + Auth.getLoginToken() } }
       )
@@ -91,14 +64,14 @@ class MedicalAuth {
         if (response.status === 200) {
           callback({
             error: "false",
-            message: "Medicine Updated Successful...",
+            message: "Medical Updated Successful...",
           });
         }
       })
       .catch(function (error) {
         callback({
           error: "true",
-          message: "Error, Failed to Update Medicine..",
+          message: "Error, Failed to Update Medical..",
         });
       });
   };
