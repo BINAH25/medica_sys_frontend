@@ -96,7 +96,7 @@ const MedicalDetailPage = () => {
   //getting single medical
   useEffect(() => {
     getSingleMedical();
-  }, [id]);
+  }, [getMedical, id]);
   let getSingleMedical = async () => {
     let response = await axios.get(Config.medicalUrl + id, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
@@ -114,7 +114,7 @@ const MedicalDetailPage = () => {
   //getting all medicines
   useEffect(() => {
     getAllMedicines();
-  }, []);
+  }, [id]);
   let getAllMedicines = async () => {
     let res = await axios.get(Config.medicineUrl, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
@@ -231,7 +231,7 @@ const MedicalDetailPage = () => {
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div className="card">
               <div className="header">
-                {updateMedical.dataLoaded == false ? (
+                {updateMedical.dataLoaded === false ? (
                   <div className="text-center">
                     <div className="preloader pl-size-xl">
                       <div className="spinner-layer">
