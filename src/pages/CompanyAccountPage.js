@@ -49,12 +49,12 @@ const CompanyAccountPage = () => {
 
   // getting login response
   const handleResponse = (data) => {
-    if (data.message === "Error, Failed to add Medical..") {
-      setMedical({
+    if (data.message === "Error, Failed to add Account..") {
+      setCompanyAccount({
         companyStatus: 4,
       });
     } else {
-      setMedical({
+      setCompanyAccount({
         companyStatus: 3,
       });
     }
@@ -62,24 +62,24 @@ const CompanyAccountPage = () => {
 
   // getting login message
   const getMessage = () => {
-    if (medical.companyStatus === 0) {
+    if (companyAccount.companyStatus === 0) {
       return "";
-    } else if (medical.companyStatus === 1) {
+    } else if (companyAccount.companyStatus === 1) {
       return (
         <div className="alert alert-warning">
           <strong>Logging in!</strong> Please Wait...
         </div>
       );
-    } else if (medical.companyStatus === 3) {
+    } else if (companyAccount.companyStatus === 3) {
       return (
         <div className="alert alert-success">
-          <strong>Medical added Successful!</strong>
+          <strong>Account added Successful!</strong>
         </div>
       );
-    } else if (medical.companyStatus === 4) {
+    } else if (companyAccount.companyStatus === 4) {
       return (
         <div className="alert alert-danger">
-          <strong>Failed to Add Medical </strong>
+          <strong>Failed to Add Account </strong>
         </div>
       );
     }
@@ -93,7 +93,7 @@ const CompanyAccountPage = () => {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
     getAccounts(response.data);
-    setMedical({ dataLoaded: true });
+    setCompanyAccount({ dataLoaded: true });
   };
   //getting all Companies
   useEffect(() => {
@@ -119,7 +119,7 @@ const CompanyAccountPage = () => {
                 <h2>Add Company Account Bill</h2>
               </div>
               <div className="body">
-                <form>
+                <form method="post" onSubmit={handleSubmit}>
                   <div className="row">
                     <div className="col-lg-4">
                       <label htmlFor="email_address">Company</label>
@@ -129,6 +129,8 @@ const CompanyAccountPage = () => {
                             className="form-control show-tick"
                             name="company_id"
                             id="company_id"
+                            value={companyAccount.company_id}
+                            onChange={handleChange}
                           >
                             {companies.map((company, index) => (
                               <option key={index} value={company.id}>
@@ -147,6 +149,8 @@ const CompanyAccountPage = () => {
                             id="transaction_type"
                             name="transaction_type"
                             className="form-control"
+                            value={companyAccount.transaction_type}
+                            onChange={handleChange}
                           >
                             <option value="1">Debit</option>
                             <option value="2">Credit</option>
@@ -164,6 +168,8 @@ const CompanyAccountPage = () => {
                             name="transaction_amt"
                             className="form-control"
                             placeholder="Enter Amount"
+                            value={companyAccount.transaction_amt}
+                            onChange={handleChange}
                           />
                         </div>
                       </div>
@@ -180,6 +186,8 @@ const CompanyAccountPage = () => {
                             name="transaction_date"
                             className="form-control"
                             placeholder="Enter Transaction Date"
+                            value={companyAccount.transaction_date}
+                            onChange={handleChange}
                           />
                         </div>
                       </div>
@@ -194,6 +202,8 @@ const CompanyAccountPage = () => {
                             name="payment_mode"
                             className="form-control"
                             placeholder="Enter Payement Mode"
+                            value={companyAccount.payment_mode}
+                            onChange={handleChange}
                           />
                         </div>
                       </div>
@@ -208,6 +218,7 @@ const CompanyAccountPage = () => {
                   </button>
                   <br />
                 </form>
+                <div className="col-xs-12">{getMessage()}</div>
               </div>
             </div>
           </div>
@@ -216,7 +227,7 @@ const CompanyAccountPage = () => {
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div className="card">
               <div className="header">
-                {this.state.dataLoaded == false ? (
+                {companyAccount.dataLoaded == false ? (
                   <div className="text-center">
                     <div className="preloader pl-size-xl">
                       <div className="spinner-layer">
@@ -241,7 +252,6 @@ const CompanyAccountPage = () => {
                       <th>#ID</th>
                       <th>Company Name</th>
                       <th>Company ID</th>
-                      <th>Company NAME</th>
                       <th>Transaction Type</th>
                       <th>Amount</th>
                       <th>Date</th>
@@ -253,9 +263,8 @@ const CompanyAccountPage = () => {
                     {accounts.map((companyaccount, index) => (
                       <tr key={index}>
                         <td>{companyaccount.id}</td>
-                        <td>{companyaccount.company.name}</td>
-                        <td>{companyaccount.company?.id}</td>
                         <td>{companyaccount.company?.name}</td>
+                        <td>{companyaccount.company?.id}</td>
                         <td>
                           {companyaccount.transaction_type == 1
                             ? "Debit"
