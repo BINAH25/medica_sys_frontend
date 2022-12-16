@@ -6,12 +6,12 @@ import CompanyAccountAuth from "../auth/CompanyAccountAuth";
 const CompanyAccountPage = () => {
   const [accounts, getAccounts] = useState([]);
   const [companies, setCompanies] = useState([]);
-  const [medical, setMedical] = useState({
-    medicine_id: "",
-    salt_name: "",
-    salt_qty: "",
-    salt_qty_type: "",
-    description: "",
+  const [companyAccount, setCompanyAccount] = useState({
+    company_id: "",
+    transaction_type: "",
+    transaction_amt: "",
+    transaction_date: "",
+    payment_mode: "",
     companyStatus: 0,
     dataLoaded: false,
   });
@@ -21,31 +21,30 @@ const CompanyAccountPage = () => {
     let name = event.target.name;
     let value = event.target.value;
 
-    setMedical({ ...medical, [name]: value });
+    setCompanyAccount({ ...companyAccount, [name]: value });
   };
 
   // Handle formSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
-    setMedical({
+    setCompanyAccount({
       companyStatus: 1,
     });
-    MedicalAuth.createMedical(
-      medical.medicine_id,
-      medical.salt_name,
-      medical.salt_qty,
-      medical.salt_qty_type,
-      medical.description,
+    CompanyAccountAuth.createAccount(
+      companyAccount.company_id,
+      companyAccount.transaction_type,
+      companyAccount.transaction_amt,
+      companyAccount.transaction_date,
+      companyAccount.payment_mode,
       handleResponse
     );
-    setMedical({
-      medicine_id: "",
-      salt_name: "",
-      salt_qty: "",
-      salt_qty_type: "",
-      description: "",
+    setCompanyAccount({
+      company_id: "",
+      transaction_type: "",
+      transaction_amt: "",
+      transaction_date: "",
+      payment_mode: "",
     });
-    console.log(medical);
   };
 
   // getting login response
