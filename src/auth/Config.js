@@ -38,6 +38,12 @@ class Config {
       url: "/medical",
       icons: "assessment",
     },
+    {
+      index: "5",
+      title: "Add Account",
+      url: "/company_account",
+      icons: "assessment",
+    },
   ];
 }
 export default Config;
