@@ -4,6 +4,109 @@ import Auth from "../auth/Auth";
 import Config from "../auth/Config";
 import CompanyAccountAuth from "../auth/CompanyAccountAuth";
 const CompanyAccountPage = () => {
+  const [getMedicals, setGetMedicals] = useState([]);
+  const [companies, setCompanies] = useState([]);
+  const [medical, setMedical] = useState({
+    medicine_id: "",
+    salt_name: "",
+    salt_qty: "",
+    salt_qty_type: "",
+    description: "",
+    companyStatus: 0,
+    dataLoaded: false,
+  });
+  // Handle Inputs
+
+  const handleChange = (event) => {
+    let name = event.target.name;
+    let value = event.target.value;
+
+    setMedical({ ...medical, [name]: value });
+  };
+
+  // Handle formSubmit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setMedical({
+      companyStatus: 1,
+    });
+    MedicalAuth.createMedical(
+      medical.medicine_id,
+      medical.salt_name,
+      medical.salt_qty,
+      medical.salt_qty_type,
+      medical.description,
+      handleResponse
+    );
+    setMedical({
+      medicine_id: "",
+      salt_name: "",
+      salt_qty: "",
+      salt_qty_type: "",
+      description: "",
+    });
+    console.log(medical);
+  };
+
+  // getting login response
+  const handleResponse = (data) => {
+    if (data.message === "Error, Failed to add Medical..") {
+      setMedical({
+        companyStatus: 4,
+      });
+    } else {
+      setMedical({
+        companyStatus: 3,
+      });
+    }
+  };
+
+  // getting login message
+  const getMessage = () => {
+    if (medical.companyStatus === 0) {
+      return "";
+    } else if (medical.companyStatus === 1) {
+      return (
+        <div className="alert alert-warning">
+          <strong>Logging in!</strong> Please Wait...
+        </div>
+      );
+    } else if (medical.companyStatus === 3) {
+      return (
+        <div className="alert alert-success">
+          <strong>Medical added Successful!</strong>
+        </div>
+      );
+    } else if (medical.companyStatus === 4) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Failed to Add Medical </strong>
+        </div>
+      );
+    }
+  };
+  //getting all accounts
+  useEffect(() => {
+    getAllAccounts();
+  }, []);
+  let getAllAccounts = async () => {
+    let response = await axios.get(Config.companyAccountUrl, {
+      headers: { Authorization: "Bearer " + Auth.getLoginToken() },
+    });
+    setGetMedicals(response.data);
+    setMedical({ dataLoaded: true });
+  };
+  //getting all Companies
+  useEffect(() => {
+    getAllCompanies();
+  }, []);
+  let getAllCompanies = async () => {
+    let res = await axios.get(Config.companyUrl, {
+      headers: { Authorization: "Bearer " + Auth.getLoginToken() },
+    });
+    setCompanies(res.data);
+  };
+
   return (
     <section className="content">
       <div className="container-fluid">
@@ -28,9 +131,9 @@ const CompanyAccountPage = () => {
                             name="company_id"
                             id="company_id"
                           >
-                            {this.state.companylist.map((item) => (
-                              <option key={item.id} value={item.id}>
-                                {item.name}
+                            {companies.map((company, index) => (
+                              <option key={index} value={company.id}>
+                                {company.name}
                               </option>
                             ))}
                           </select>
