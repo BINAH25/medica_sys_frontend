@@ -5,7 +5,7 @@ import { useState } from "react";
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 import Overlay from "../Overlay";
-
+import CompanyAccountPage from "../../pages/CompanyAccountPage";
 const CompanyAccount = () => {
   const [theme, setTheme] = useState({
     bodyClass: "theme-red ls-closed",
@@ -48,7 +48,7 @@ const CompanyAccount = () => {
       <Overlay display={theme.displayOverlay} />
       <Navbar onBarClick={onBarClick} />
       <Sidebar />
-      <CompanyPages />
+      <CompanyAccountPage />
     </>
   );
 };
