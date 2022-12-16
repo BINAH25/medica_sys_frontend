@@ -4,7 +4,7 @@ import Auth from "../auth/Auth";
 import Config from "../auth/Config";
 import CompanyAccountAuth from "../auth/CompanyAccountAuth";
 const CompanyAccountPage = () => {
-  const [getMedicals, setGetMedicals] = useState([]);
+  const [accounts, getAccounts] = useState([]);
   const [companies, setCompanies] = useState([]);
   const [medical, setMedical] = useState({
     medicine_id: "",
@@ -93,7 +93,7 @@ const CompanyAccountPage = () => {
     let response = await axios.get(Config.companyAccountUrl, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
-    setGetMedicals(response.data);
+    getAccounts(response.data);
     setMedical({ dataLoaded: true });
   };
   //getting all Companies
@@ -242,6 +242,7 @@ const CompanyAccountPage = () => {
                       <th>#ID</th>
                       <th>Company Name</th>
                       <th>Company ID</th>
+                      <th>Company NAME</th>
                       <th>Transaction Type</th>
                       <th>Amount</th>
                       <th>Date</th>
@@ -250,11 +251,12 @@ const CompanyAccountPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.companyAccountdata.map((companyaccount) => (
-                      <tr key={companyaccount.id}>
+                    {accounts.map((companyaccount, index) => (
+                      <tr key={index}>
                         <td>{companyaccount.id}</td>
                         <td>{companyaccount.company.name}</td>
-                        <td>{companyaccount.company.id}</td>
+                        <td>{companyaccount.company?.id}</td>
+                        <td>{companyaccount.company?.name}</td>
                         <td>
                           {companyaccount.transaction_type == 1
                             ? "Debit"
