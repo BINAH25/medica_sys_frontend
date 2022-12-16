@@ -227,7 +227,7 @@ const CompanyAccountPage = () => {
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div className="card">
               <div className="header">
-                {companyAccount.dataLoaded == false ? (
+                {companyAccount.dataLoaded === false ? (
                   <div className="text-center">
                     <div className="preloader pl-size-xl">
                       <div className="spinner-layer">
@@ -266,7 +266,7 @@ const CompanyAccountPage = () => {
                         <td>{companyaccount.company?.name}</td>
                         <td>{companyaccount.company?.id}</td>
                         <td>
-                          {companyaccount.transaction_type == 1
+                          {companyaccount.transaction_type === 1
                             ? "Debit"
                             : "Credit"}
                         </td>
