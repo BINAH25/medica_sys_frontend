@@ -235,7 +235,7 @@ export const EmployeePage = () => {
                         <td>{new Date(employee.added_on).toLocaleString()}</td>
                         <td>
                           <Link
-                            className="btn btn-block btn-warning"
+                            className="btn btn-block btn-primary"
                             to={`/employee/${employee.id}`}
                           >
                             View
