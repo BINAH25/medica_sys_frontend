@@ -11,10 +11,10 @@ const Employee = () => {
     displayOverlay: "none",
   });
   const onBarClick = () => {
-    if (theme.bodyClass == "theme-red ls-closed overlay-open") {
+    if (theme.bodyClass === "theme-red ls-closed overlay-open") {
       setTheme({ bodyClass: "theme-red ls-closed" });
       setTheme({ displayOverlay: "none" });
-    } else if (theme.bodyClass == "theme-red ls-closed") {
+    } else if (theme.bodyClass === "theme-red ls-closed") {
       setTheme({ bodyClass: "theme-red ls-closed overlay-open" });
       setTheme({ displayOverlay: "block" });
     }

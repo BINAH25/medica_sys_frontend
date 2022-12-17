@@ -45,6 +45,12 @@ class Config {
       url: "/company_account",
       icons: "assessment",
     },
+    {
+      index: "6",
+      title: "Add Employee",
+      url: "/employee",
+      icons: "assessment",
+    },
   ];
 }
 export default Config;
