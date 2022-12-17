@@ -6,6 +6,7 @@ class Config {
   static medicineUrl = "http://127.0.0.1:8000/api/medicine/";
   static medicalUrl = "http://127.0.0.1:8000/api/medicine_details/";
   static companyAccountUrl = "http://127.0.0.1:8000/api/company_account/";
+  static employeeUrl = "http://127.0.0.1:8000/api/employee/";
 
   // SIDE BAR URLS
   static sidebarItem = [
