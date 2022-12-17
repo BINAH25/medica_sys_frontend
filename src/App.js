@@ -10,6 +10,7 @@ import MedicineDetail from "./components/medicine/MedicineDetail";
 import Medical from "./components/medical/Medical";
 import MedicalDetail from "./components/medical/MedicalDetail";
 import CompanyAccount from "./components/companyAccount/CompanyAccount";
+import Employee from "./components/employee/Employee";
 function App() {
   return (
     <Router>
@@ -25,6 +26,7 @@ function App() {
         <Route element={<Medical />} path="/medical" />
         <Route element={<MedicalDetail />} path="/medical/:id" />
         <Route element={<CompanyAccount />} path="/company_account" />
+        <Route element={<Employee />} path="/employee" />
       </Routes>
     </Router>
   );
