@@ -5,14 +5,12 @@ import Config from "../auth/Config";
 import EmployeeAuth from "../auth/EmployeeAuth";
 
 export const EmployeePage = () => {
-  const [accounts, getAccounts] = useState([]);
-  const [companies, setCompanies] = useState([]);
-  const [companyAccount, setCompanyAccount] = useState({
-    company_id: "",
-    transaction_type: "",
-    transaction_amt: "",
-    transaction_date: "",
-    payment_mode: "",
+  const [getEmployee, setGetEmployee] = useState([]);
+  const [employee, setEmployee] = useState({
+    name: "",
+    joining_date: "",
+    phone: "",
+    address: "",
     companyStatus: 0,
     dataLoaded: false,
   });
@@ -22,40 +20,38 @@ export const EmployeePage = () => {
     let name = event.target.name;
     let value = event.target.value;
 
-    setCompanyAccount({ ...companyAccount, [name]: value });
+    setEmployee({ ...employee, [name]: value });
   };
 
   // Handle formSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
-    setCompanyAccount({
+    setEmployee({
       companyStatus: 1,
     });
-    CompanyAccountAuth.createAccount(
-      companyAccount.company_id,
-      companyAccount.transaction_type,
-      companyAccount.transaction_amt,
-      companyAccount.transaction_date,
-      companyAccount.payment_mode,
+    EmployeeAuth.createEmployee(
+      employee.name,
+      employee.joining_date,
+      employee.phone,
+      employee.address,
       handleResponse
     );
-    setCompanyAccount({
-      company_id: "",
-      transaction_type: "",
-      transaction_amt: "",
-      transaction_date: "",
-      payment_mode: "",
+    setEmployee({
+      name: "",
+      joining_date: "",
+      phone: "",
+      address: "",
     });
   };
 
   // getting login response
   const handleResponse = (data) => {
-    if (data.message === "Error, Failed to add Account..") {
-      setCompanyAccount({
+    if (data.message === "Error, Failed to add Employee..") {
+      setEmployee({
         companyStatus: 4,
       });
     } else {
-      setCompanyAccount({
+      setEmployee({
         companyStatus: 3,
       });
     }
@@ -63,48 +59,38 @@ export const EmployeePage = () => {
 
   // getting login message
   const getMessage = () => {
-    if (companyAccount.companyStatus === 0) {
+    if (employee.companyStatus === 0) {
       return "";
-    } else if (companyAccount.companyStatus === 1) {
+    } else if (employee.companyStatus === 1) {
       return (
         <div className="alert alert-warning">
           <strong>Logging in!</strong> Please Wait...
         </div>
       );
-    } else if (companyAccount.companyStatus === 3) {
+    } else if (employee.companyStatus === 3) {
       return (
         <div className="alert alert-success">
-          <strong>Account added Successful!</strong>
+          <strong>Employee added Successful!</strong>
         </div>
       );
-    } else if (companyAccount.companyStatus === 4) {
+    } else if (employee.companyStatus === 4) {
       return (
         <div className="alert alert-danger">
-          <strong>Failed to Add Account </strong>
+          <strong>Failed to Add Employee </strong>
         </div>
       );
     }
   };
-  //getting all accounts
+  //getting all Employees
   useEffect(() => {
-    getAllAccounts();
+    getAllEmployees();
   }, []);
-  let getAllAccounts = async () => {
-    let response = await axios.get(Config.companyAccountUrl, {
+  let getAllEmployees = async () => {
+    let response = await axios.get(Config.employeeUrl, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
-    getAccounts(response.data);
-    setCompanyAccount({ dataLoaded: true });
-  };
-  //getting all Companies
-  useEffect(() => {
-    getAllCompanies();
-  }, []);
-  let getAllCompanies = async () => {
-    let res = await axios.get(Config.companyUrl, {
-      headers: { Authorization: "Bearer " + Auth.getLoginToken() },
-    });
-    setCompanies(res.data);
+    setGetEmployee(response.data);
+    setEmployee({ dataLoaded: true });
   };
 
   return <div>EmployeePage</div>;
