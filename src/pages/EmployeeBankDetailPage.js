@@ -26,22 +26,23 @@ export const EmployeeBankDetailPage = () => {
     let name = event.target.name;
     let value = event.target.value;
 
-    setEmployeeBank({ ...employeeBank, [name]: value });
+    setUpdateEmployeeBank({ ...updateEmployeeBank, [name]: value });
   };
 
   // Handle formSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
-    setEmployeeBank({
+    setUpdateEmployeeBank({
       companyStatus: 1,
     });
-    EmployeeBankAuth.createEmployeeBank(
-      employeeBank.bank_account_no,
-      employeeBank.ifsc_no,
-      employeeBank.employee_id,
+    EmployeeBankAuth.editEmployeeBank(
+      updateEmployeeBank.bank_account_no,
+      updateEmployeeBank.ifsc_no,
+      updateEmployeeBank.employee_id,
+      id,
       handleResponse
     );
-    setEmployeeBank({
+    setUpdateEmployeeBank({
       bank_account_no: "",
       ifsc_no: "",
       employee_id: "",
@@ -50,12 +51,12 @@ export const EmployeeBankDetailPage = () => {
 
   // getting login response
   const handleResponse = (data) => {
-    if (data.message === "Error, Failed to Add Employee Bank..") {
-      setEmployeeBank({
+    if (data.message === "Error, Failed to Update Employee Bank..") {
+      setUpdateEmployeeBank({
         companyStatus: 4,
       });
     } else {
-      setEmployeeBank({
+      setUpdateEmployeeBank({
         companyStatus: 3,
       });
     }
@@ -63,38 +64,42 @@ export const EmployeeBankDetailPage = () => {
 
   // getting login message
   const getMessage = () => {
-    if (employeeBank.companyStatus === 0) {
+    if (updateEmployeeBank.companyStatus === 0) {
       return "";
-    } else if (employeeBank.companyStatus === 1) {
+    } else if (updateEmployeeBank.companyStatus === 1) {
       return (
         <div className="alert alert-warning">
           <strong>Logging in!</strong> Please Wait...
         </div>
       );
-    } else if (employeeBank.companyStatus === 3) {
+    } else if (updateEmployeeBank.companyStatus === 3) {
       return (
         <div className="alert alert-success">
-          <strong>Employee Bank added Successful!</strong>
+          <strong>Employee Bank Updated Successful!</strong>
         </div>
       );
-    } else if (employeeBank.companyStatus === 4) {
+    } else if (updateEmployeeBank.companyStatus === 4) {
       return (
         <div className="alert alert-danger">
-          <strong>Failed to Add Employee Bank</strong>
+          <strong>Failed to Update Employee Bank</strong>
         </div>
       );
     }
   };
-  // get all employee banks
+  // get  employee bank by id
   useEffect(() => {
-    getAllEmployeeBanks();
+    getEmployeeById();
   }, []);
-  let getAllEmployeeBanks = async () => {
-    let res = await axios.get(Config.employeeBankUrl, {
+  let getEmployeeById = async () => {
+    let res = await axios.get(Config.employeeBankUrl + id, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
     setGetEmployeeBank(res.data);
-    setEmployeeBank({ dataLoaded: true });
+    setUpdateEmployeeBank({
+      bank_account_no: res.data.bank_account_no,
+      ifsc_no: res.data.ifsc_no,
+      employee_id: res.data.employee_id,
+    });
   };
   // get all employees
   useEffect(() => {
