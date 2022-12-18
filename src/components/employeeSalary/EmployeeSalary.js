@@ -6,6 +6,7 @@ import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 import Overlay from "../Overlay";
 import EmployeeSalaryPage from "../../pages/EmployeeSalaryPage";
+// main function
 const EmployeeSalary = () => {
   const [theme, setTheme] = useState({
     bodyClass: "theme-red ls-closed",
