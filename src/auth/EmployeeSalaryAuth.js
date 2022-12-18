@@ -3,7 +3,7 @@ import Config from "./Config";
 import Auth from "./Auth";
 class EmployeeSalaryAuth {
   // creating employee salary url
-  static createEmployeeBank = (
+  static createEmployeeSalary = (
     employee_id,
     salary_date,
     salary_amount,
@@ -35,7 +35,7 @@ class EmployeeSalaryAuth {
       });
   };
   // creating edit  company url
-  static editEmployeeBank = (
+  static editEmployeeSalary = (
     employee_id,
     salary_date,
     salary_amount,
