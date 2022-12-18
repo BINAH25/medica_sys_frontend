@@ -7,6 +7,7 @@ class Config {
   static medicalUrl = "http://127.0.0.1:8000/api/medicine_details/";
   static companyAccountUrl = "http://127.0.0.1:8000/api/company_account/";
   static employeeUrl = "http://127.0.0.1:8000/api/employee/";
+  static employeeBankUrl = "http://127.0.0.1:8000/api/employee_bank/";
 
   // SIDE BAR URLS
   static sidebarItem = [
@@ -46,10 +47,16 @@ class Config {
       url: "/company_account",
       icons: "assessment",
     },
+    //{
+    //index: "6",
+    //title: "Add Employee",
+    //url: "/employee",
+    //icons: "assessment",
+    //},
     {
-      index: "6",
-      title: "Add Employee",
-      url: "/employee",
+      index: "7",
+      title: "Employee Bank",
+      url: "/employee_bank",
       icons: "assessment",
     },
   ];
