@@ -26,13 +26,13 @@ const EmployeeSalaryDetailPage = () => {
     let name = event.target.name;
     let value = event.target.value;
 
-    updateEmployeeSalary({ ...updateEmployeeSalary, [name]: value });
+    setUpdateEmployeeSalary({ ...updateEmployeeSalary, [name]: value });
   };
 
   // Handle formSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateEmployeeSalary({
+    setUpdateEmployeeSalary({
       companyStatus: 1,
     });
     EmployeeSalaryAuth.editEmployeeSalary(
@@ -42,7 +42,7 @@ const EmployeeSalaryDetailPage = () => {
       id,
       handleResponse
     );
-    updateEmployeeSalary({
+    setUpdateEmployeeSalary({
       employee_id: "",
       salary_date: "",
       salary_amount: "",
@@ -51,12 +51,12 @@ const EmployeeSalaryDetailPage = () => {
 
   // getting login response
   const handleResponse = (data) => {
-    if (data.message === "Error, Failed to Add Employee Salary..") {
-      updateEmployeeSalary({
+    if (data.message === "Error, Failed to Update Employee Salary..") {
+      setUpdateEmployeeSalary({
         companyStatus: 4,
       });
     } else {
-      updateEmployeeSalary({
+      setUpdateEmployeeSalary({
         companyStatus: 3,
       });
     }
@@ -75,13 +75,13 @@ const EmployeeSalaryDetailPage = () => {
     } else if (updateEmployeeSalary.companyStatus === 3) {
       return (
         <div className="alert alert-success">
-          <strong>Employee Salary added Successful!</strong>
+          <strong>Employee Salary Updated Successful!</strong>
         </div>
       );
     } else if (updateEmployeeSalary.companyStatus === 4) {
       return (
         <div className="alert alert-danger">
-          <strong>Failed to Add Employee Salary</strong>
+          <strong>Failed to Update Employee Salary</strong>
         </div>
       );
     }
@@ -95,7 +95,7 @@ const EmployeeSalaryDetailPage = () => {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
     setGetEmployeeSalaries(res.data);
-    updateEmployeeSalary({
+    setUpdateEmployeeSalary({
       employee_id: res.data.employee_id,
       salary_date: res.data.salary_date,
       salary_amount: res.data.salary_amount,
@@ -117,13 +117,13 @@ const EmployeeSalaryDetailPage = () => {
       <div className="container-fluid">
         <div className="col-xs-12">{getMessage()}</div>
         <div className="block-header">
-          <h2>MANAGE EMPLOYEE SALARY</h2>
+          <h2>UPDATE EMPLOYEE SALARY</h2>
         </div>
         <div className="row clearfix">
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div className="card">
               <div className="header">
-                <h2>Add Employee Salary</h2>
+                <h2>Update Employee Salary</h2>
               </div>
               <div className="body">
                 <form method="post" onSubmit={handleSubmit}>
@@ -134,7 +134,7 @@ const EmployeeSalaryDetailPage = () => {
                       name="employee_id"
                       id="employee_id"
                       onChange={handleChange}
-                      value={employeeSalary.employee_id}
+                      value={updateEmployeeSalary.employee_id}
                     >
                       {employees.map((employee) => (
                         <option key={employee.id} value={employee.id}>
@@ -152,7 +152,7 @@ const EmployeeSalaryDetailPage = () => {
                         name="salary_date"
                         className="form-control"
                         placeholder="Enter salary date"
-                        value={employeeSalary.salary_date}
+                        value={updateEmployeeSalary.salary_date}
                         onChange={handleChange}
                         required
                       />
@@ -167,7 +167,7 @@ const EmployeeSalaryDetailPage = () => {
                         name="salary_amount"
                         className="form-control"
                         placeholder="Enter salary_amount ."
-                        value={employeeSalary.salary_amount}
+                        value={updateEmployeeSalary.salary_amount}
                         onChange={handleChange}
                         required
                       />
@@ -178,7 +178,7 @@ const EmployeeSalaryDetailPage = () => {
                     type="submit"
                     className="btn btn-primary m-t-15 waves-effect btn-block"
                   >
-                    Add Employee Salary
+                    Update Employee Salary
                   </button>
                   <br />
                 </form>
@@ -190,23 +190,7 @@ const EmployeeSalaryDetailPage = () => {
           <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div className="card">
               <div className="header">
-                {employeeSalary.dataLoaded == false ? (
-                  <div className="text-center">
-                    <div className="preloader pl-size-xl">
-                      <div className="spinner-layer">
-                        <div className="circle-clipper left">
-                          <div className="circle"></div>
-                        </div>
-                        <div className="circle-clipper right">
-                          <div className="circle"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
-                <h2>All Employee Salaries </h2>
+                <h2>Employee Salary </h2>
               </div>
               <div className="body table-responsive">
                 <table className="table table-hover">
@@ -221,24 +205,25 @@ const EmployeeSalaryDetailPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {getEmployeeSalaries.map((salary, index) => (
-                      <tr key={index}>
-                        <td>{salary.id}</td>
-                        <td>{salary.salary_amount}</td>
-                        <td>{salary.salary_date}</td>
-                        <td>{salary.employee_id}</td>
-                        <td>{salary.employee?.name}</td>
-                        <td>{new Date(salary.added_on).toLocaleString()}</td>
+                    {getEmployeeSalaries && (
+                      <tr>
+                        <td>{getEmployeeSalaries.id}</td>
+                        <td>{getEmployeeSalaries.salary_amount}</td>
+                        <td>{getEmployeeSalaries.salary_date}</td>
+                        <td>{getEmployeeSalaries.employee_id}</td>
+                        <td>{getEmployeeSalaries.employee?.name}</td>
                         <td>
-                          <Link
-                            className="btn btn-block btn-primary"
-                            to={`/employee_salary/${salary.id}`}
-                          >
-                            View
-                          </Link>
+                          {new Date(
+                            getEmployeeSalaries.added_on
+                          ).toLocaleString()}
+                        </td>
+                        <td>
+                          <button className="btn btn-block btn-primary">
+                            delete
+                          </button>
                         </td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               </div>
