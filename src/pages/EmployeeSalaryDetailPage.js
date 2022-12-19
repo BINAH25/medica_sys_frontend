@@ -3,10 +3,16 @@ import axios from "axios";
 import Auth from "../auth/Auth";
 import Config from "../auth/Config";
 import EmployeeSalaryAuth from "../auth/EmployeeSalaryAuth";
-
+import { useParams } from "react-router-dom";
 const EmployeeSalaryDetailPage = () => {
-  const [getEmployeeSalaries, setGetEmployeeSalaries] = useState([]);
+  //
+  const params = useParams();
+  const id = params.id;
+  //
+  const [getEmployeeSalaries, setGetEmployeeSalaries] = useState(null);
+  //
   const [employees, setEmployees] = useState([]);
+  //
   const [employeeSalary, setEmployeeSalary] = useState({
     employee_id: "",
     salary_date: "",
