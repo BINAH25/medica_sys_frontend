@@ -13,7 +13,7 @@ const EmployeeSalaryDetailPage = () => {
   //
   const [employees, setEmployees] = useState([]);
   //
-  const [employeeSalary, setEmployeeSalary] = useState({
+  const [updateEmployeeSalary, setUpdateEmployeeSalary] = useState({
     employee_id: "",
     salary_date: "",
     salary_amount: "",
@@ -26,22 +26,23 @@ const EmployeeSalaryDetailPage = () => {
     let name = event.target.name;
     let value = event.target.value;
 
-    setEmployeeSalary({ ...employeeSalary, [name]: value });
+    updateEmployeeSalary({ ...updateEmployeeSalary, [name]: value });
   };
 
   // Handle formSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
-    setEmployeeSalary({
+    updateEmployeeSalary({
       companyStatus: 1,
     });
-    EmployeeSalaryAuth.createEmployeeSalary(
-      employeeSalary.employee_id,
-      employeeSalary.salary_date,
-      employeeSalary.salary_amount,
+    EmployeeSalaryAuth.editEmployeeSalary(
+      updateEmployeeSalary.employee_id,
+      updateEmployeeSalary.salary_date,
+      updateEmployeeSalary.salary_amount,
+      id,
       handleResponse
     );
-    setEmployeeSalary({
+    updateEmployeeSalary({
       employee_id: "",
       salary_date: "",
       salary_amount: "",
@@ -51,11 +52,11 @@ const EmployeeSalaryDetailPage = () => {
   // getting login response
   const handleResponse = (data) => {
     if (data.message === "Error, Failed to Add Employee Salary..") {
-      setEmployeeSalary({
+      updateEmployeeSalary({
         companyStatus: 4,
       });
     } else {
-      setEmployeeSalary({
+      updateEmployeeSalary({
         companyStatus: 3,
       });
     }
@@ -63,21 +64,21 @@ const EmployeeSalaryDetailPage = () => {
 
   // getting login message
   const getMessage = () => {
-    if (employeeSalary.companyStatus === 0) {
+    if (updateEmployeeSalary.companyStatus === 0) {
       return "";
-    } else if (employeeSalary.companyStatus === 1) {
+    } else if (updateEmployeeSalary.companyStatus === 1) {
       return (
         <div className="alert alert-warning">
           <strong>Logging in!</strong> Please Wait...
         </div>
       );
-    } else if (employeeSalary.companyStatus === 3) {
+    } else if (updateEmployeeSalary.companyStatus === 3) {
       return (
         <div className="alert alert-success">
           <strong>Employee Salary added Successful!</strong>
         </div>
       );
-    } else if (employeeSalary.companyStatus === 4) {
+    } else if (updateEmployeeSalary.companyStatus === 4) {
       return (
         <div className="alert alert-danger">
           <strong>Failed to Add Employee Salary</strong>
@@ -85,16 +86,20 @@ const EmployeeSalaryDetailPage = () => {
       );
     }
   };
-  // get all employee salaries
+  // get all employee salary by id
   useEffect(() => {
-    getAllEmployeeSalaries();
+    getEmployeeSalary();
   }, []);
-  let getAllEmployeeSalaries = async () => {
-    let res = await axios.get(Config.employeeSalaryUrl, {
+  let getEmployeeSalary = async () => {
+    let res = await axios.get(Config.employeeSalaryUrl + id, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
     setGetEmployeeSalaries(res.data);
-    setEmployeeSalary({ dataLoaded: true });
+    updateEmployeeSalary({
+      employee_id: res.data.employee_id,
+      salary_date: res.data.salary_date,
+      salary_amount: res.data.salary_amount,
+    });
   };
   // get all employees
   useEffect(() => {
