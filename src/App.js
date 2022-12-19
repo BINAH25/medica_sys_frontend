@@ -15,6 +15,7 @@ import EmployeeDetail from "./components/employee/EmployeeDetail";
 import EmployeeBank from "./components/employeeBank/EmployeeBank";
 import EmployeeBankDetail from "./components/employeeBank/EmployeeBankDetail";
 import EmployeeSalary from "./components/employeeSalary/EmployeeSalary";
+import EmployeeSalaryDetail from "./components/employeeSalary/EmployeeSalaryDetail";
 function App() {
   return (
     <Router>
@@ -35,6 +36,10 @@ function App() {
         <Route element={<EmployeeBank />} path="/employee_bank/" />
         <Route element={<EmployeeBankDetail />} path="/employee_bank/:id/" />
         <Route element={<EmployeeSalary />} path="/employee_salary" />
+        <Route
+          element={<EmployeeSalaryDetail />}
+          path="/employee_salary/:id/"
+        />
       </Routes>
     </Router>
   );
