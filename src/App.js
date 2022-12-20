@@ -16,6 +16,7 @@ import EmployeeBank from "./components/employeeBank/EmployeeBank";
 import EmployeeBankDetail from "./components/employeeBank/EmployeeBankDetail";
 import EmployeeSalary from "./components/employeeSalary/EmployeeSalary";
 import EmployeeSalaryDetail from "./components/employeeSalary/EmployeeSalaryDetail";
+import Customer from "./components/customer/Customer";
 function App() {
   return (
     <Router>
@@ -40,6 +41,7 @@ function App() {
           element={<EmployeeSalaryDetail />}
           path="/employee_salary/:id/"
         />
+        <Route element={<Customer />} path="/customer" />
       </Routes>
     </Router>
   );
