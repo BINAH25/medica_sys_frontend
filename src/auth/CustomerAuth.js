@@ -5,7 +5,7 @@ class CustomerAuth {
   static createCustomer = (name, address, contact, callback) => {
     axios
       .post(
-        Config.companyUrl,
+        Config.customerUrl,
         {
           name: name,
           address: address,
@@ -26,10 +26,10 @@ class CustomerAuth {
       });
   };
 
-  static editCompany = (name, address, contact, id, callback) => {
+  static editCustomer = (name, address, contact, id, callback) => {
     axios
       .put(
-        Config.companyUrl + id + "/",
+        Config.customerUrl + id + "/",
         {
           name: name,
           address: address,
