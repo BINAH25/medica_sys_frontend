@@ -4,10 +4,13 @@ import Auth from "../auth/Auth";
 import Config from "../auth/Config";
 import BillDetailAuth from "../auth/BillDetailAuth";
 const BillDetailPage = () => {
-  const [getBills, setGetBills] = useState([]);
-  const [customers, setCustomers] = useState([]);
-  const [bill, setBill] = useState({
-    customer_id: "",
+  const [getBillDetail, setGetBillDetail] = useState([]);
+  const [medicine, setMedicine] = useState([]);
+  const [bill, setBill] = useState([]);
+  const [billDetail, setBillDetail] = useState({
+    bill_id: "",
+    medicine_id: "",
+    qty: "",
     companyStatus: 0,
     dataLoaded: false,
   });
@@ -17,29 +20,36 @@ const BillDetailPage = () => {
     let name = event.target.name;
     let value = event.target.value;
 
-    setBill({ ...bill, [name]: value });
+    setBillDetail({ ...billDetail, [name]: value });
   };
 
   // Handle formSubmit
   const handleSubmit = (e) => {
     e.preventDefault();
-    setBill({
+    setBillDetail({
       companyStatus: 1,
     });
-    BillAuth.createBill(bill.customer_id, handleResponse);
-    setBill({
-      customer_id: "",
+    BillDetailAuth.createBillDetail(
+      billDetail.bill_id,
+      billDetail.medicine_id,
+      billDetail.qty,
+      handleResponse
+    );
+    setBillDetail({
+      bill_id: "",
+      medicine_id: "",
+      qty: "",
     });
   };
 
   // getting login response
   const handleResponse = (data) => {
-    if (data.message === "Error, Failed to add Bill..") {
-      setBill({
+    if (data.message === "Error, Failed to add BillDetail..") {
+      setBillDetail({
         companyStatus: 4,
       });
     } else {
-      setBill({
+      setBillDetail({
         companyStatus: 3,
       });
     }
@@ -47,21 +57,21 @@ const BillDetailPage = () => {
 
   // getting login message
   const getMessage = () => {
-    if (bill.companyStatus === 0) {
+    if (billDetail.companyStatus === 0) {
       return "";
-    } else if (bill.companyStatus === 1) {
+    } else if (billDetail.companyStatus === 1) {
       return (
         <div className="alert alert-warning">
           <strong>Logging in!</strong> Please Wait...
         </div>
       );
-    } else if (bill.companyStatus === 3) {
+    } else if (billDetail.companyStatus === 3) {
       return (
         <div className="alert alert-success">
-          <strong>Bill added Successful!</strong>
+          <strong>billDetail added Successful!</strong>
         </div>
       );
-    } else if (bill.companyStatus === 4) {
+    } else if (billDetail.companyStatus === 4) {
       return (
         <div className="alert alert-danger">
           <strong>Failed to Add Bill </strong>
@@ -77,18 +87,28 @@ const BillDetailPage = () => {
     let response = await axios.get(Config.billUrl, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
-    setGetBills(response.data);
-    setBill({ dataLoaded: true });
+    setBill(response.data);
   };
-  //getting all Customers
+  //getting all Medicine
   useEffect(() => {
-    getAllCustomers();
+    getAllMedicine();
   }, []);
-  let getAllCustomers = async () => {
-    let res = await axios.get(Config.customerUrl, {
+  let getAllMedicine = async () => {
+    let res = await axios.get(Config.medicineUrl, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
-    setCustomers(res.data);
+    setMedicine(res.data);
+  };
+  //getting all Bill Details
+  useEffect(() => {
+    getAllBillDetails();
+  }, []);
+  let getAllBillDetails = async () => {
+    let bill_details = await axios.get(Config.medicineUrl, {
+      headers: { Authorization: "Bearer " + Auth.getLoginToken() },
+    });
+    setGetBillDetail(bill_details.data);
+    setBillDetail({ dataLoaded: true });
   };
 
   return <div>BillDetailPage</div>;
