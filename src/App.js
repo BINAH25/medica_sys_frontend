@@ -18,6 +18,7 @@ import EmployeeSalary from "./components/employeeSalary/EmployeeSalary";
 import EmployeeSalaryDetail from "./components/employeeSalary/EmployeeSalaryDetail";
 import Customer from "./components/customer/Customer";
 import Bill from "./components/bill/Bill";
+import BillDetailPage from "./pages/BillDetailPage";
 function App() {
   return (
     <Router>
@@ -44,6 +45,7 @@ function App() {
         />
         <Route element={<Customer />} path="/customer" />
         <Route element={<Bill />} path="/bill" />
+        <Route element={<BillDetailPage />} path="/bill_detail" />
       </Routes>
     </Router>
   );
