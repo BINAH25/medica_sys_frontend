@@ -104,7 +104,7 @@ const BillDetailPage = () => {
     getAllBillDetails();
   }, []);
   let getAllBillDetails = async () => {
-    let bill_details = await axios.get(Config.medicineUrl, {
+    let bill_details = await axios.get(Config.billDetailUrl, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
     setGetBillDetail(bill_details.data);
@@ -163,6 +163,23 @@ const BillDetailPage = () => {
                               </option>
                             ))}
                           </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-lg-4">
+                      <label htmlFor="email_address">Quantity</label>
+                      <div className="form-group">
+                        <div className="form-line">
+                          <input
+                            type="text"
+                            id="qty"
+                            name="qty"
+                            className="form-control"
+                            placeholder="Enter Quantity"
+                            value={billDetail.qty}
+                            onChange={handleChange}
+                            required
+                          />
                         </div>
                       </div>
                     </div>
