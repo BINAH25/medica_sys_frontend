@@ -2,10 +2,10 @@ import axios from "axios";
 import Config from "./Config";
 import Auth from "./Auth";
 class BillDetailAuth {
-  static createBill = (bill_id, medicine_id, qty, callback) => {
+  static createBillDetail = (bill_id, medicine_id, qty, callback) => {
     axios
       .post(
-        Config.billUrl,
+        Config.billDetailUrl,
         {
           bill_id: bill_id,
           medicine_id: medicine_id,
