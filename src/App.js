@@ -20,6 +20,7 @@ import Customer from "./components/customer/Customer";
 import Bill from "./components/bill/Bill";
 import BillDetail from "./components/billDetail/BillDetail";
 import CustomerRequest from "./components/customerRequest/CustomerRequest";
+import CustomerRequestDetail from "./components/customerRequest/CustomerRequestDetail";
 function App() {
   return (
     <Router>
@@ -48,6 +49,10 @@ function App() {
         <Route element={<Bill />} path="/bill" />
         <Route element={<BillDetail />} path="/bill_detail" />
         <Route element={<CustomerRequest />} path="/customer_request" />
+        <Route
+          element={<CustomerRequestDetail />}
+          path="/customer_request/:id/"
+        />
       </Routes>
     </Router>
   );
