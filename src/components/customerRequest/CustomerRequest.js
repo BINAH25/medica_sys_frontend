@@ -47,7 +47,7 @@ const CustomerRequest = () => {
       <Overlay display={theme.displayOverlay} />
       <Navbar onBarClick={onBarClick} />
       <Sidebar />
-      <EmployeePage />
+      <CustomerRequestPage />
     </>
   );
 };

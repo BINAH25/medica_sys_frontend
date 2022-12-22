@@ -12,6 +12,7 @@ class Config {
   static customerUrl = "http://127.0.0.1:8000/api/customer/";
   static billUrl = "http://127.0.0.1:8000/api/bill/";
   static billDetailUrl = "http://127.0.0.1:8000/api/bill_detail/";
+  static customerRequestUrl = "http://127.0.0.1:8000/api/customer_request/";
 
   // SIDE BAR URLS
   static sidebarItem = [
@@ -81,10 +82,16 @@ class Config {
     //url: "/bill",
     //icons: "assessment",
     //},
+    //{
+    //index: "11",
+    //title: "Add BillDetail",
+    //url: "/bill_detail",
+    //icons: "assessment",
+    //},
     {
-      index: "11",
-      title: "Add BillDetail",
-      url: "/bill_detail",
+      index: "12",
+      title: "Customer Request",
+      url: "/customer_request",
       icons: "assessment",
     },
   ];
