@@ -87,6 +87,8 @@ const CustomerRequestPage = () => {
     let res = await axios.get(Config.customerRequestUrl, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
+    console.log(res.data);
+
     setGetRequests(res.data);
     setCustomerRequest({ dataLoaded: true });
   };
@@ -195,7 +197,7 @@ const CustomerRequestPage = () => {
                       <th>CUSTOMER NAME</th>
                       <th>PHONE</th>
                       <th>MEDICINE DETAIL</th>
-                      <th>COMPANY NAME</th>
+                      <th>STATUS </th>
                       <th>ADDED ON</th>
                     </tr>
                   </thead>
@@ -206,7 +208,7 @@ const CustomerRequestPage = () => {
                         <td>{request.customer_name}</td>
                         <td>{request.phone}</td>
                         <td>{request.medicine_details}</td>
-                        <td>{request.status}</td>
+                        <td>{request.status == 0 ? "False" : "Completed"}</td>
                         <td>{new Date(request.added_on).toLocaleString()}</td>
                         <td>
                           <Link
