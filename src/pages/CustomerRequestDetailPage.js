@@ -31,17 +31,14 @@ const CustomerRequestDetailPage = () => {
     setCustomerRequest({
       companyStatus: 1,
     });
-    CustomerRequestAuth.createCustomerRequest(
+    CustomerRequestAuth.editCustomerRequest(
       customerRequest.customer_name,
       customerRequest.phone,
       customerRequest.medicine_details,
+      customerRequest.status,
+      id,
       handleResponse
     );
-    setCustomerRequest({
-      customer_name: "",
-      phone: "",
-      medicine_details: "",
-    });
   };
 
   // getting login response
@@ -70,27 +67,31 @@ const CustomerRequestDetailPage = () => {
     } else if (customerRequest.companyStatus === 3) {
       return (
         <div className="alert alert-success">
-          <strong>Company Bank added Successful!</strong>
+          <strong>Customer request completed </strong>
         </div>
       );
     } else if (customerRequest.companyStatus === 4) {
       return (
         <div className="alert alert-danger">
-          <strong>Failed to Add Company Bank</strong>
+          <strong>Failed to completed Customer request </strong>
         </div>
       );
     }
   };
-  // getting all customer request
+  // getting single customer request
   useEffect(() => {
-    getAllCustomerRequest();
+    getSingleCustomerRequest();
   }, []);
-  let getAllCustomerRequest = async () => {
-    let res = await axios.get(Config.customerRequestUrl, {
+  let getSingleCustomerRequest = async () => {
+    let res = await axios.get(Config.customerRequestUrl + id, {
       headers: { Authorization: "Bearer " + Auth.getLoginToken() },
     });
     setGetRequests(res.data);
-    setCustomerRequest({ dataLoaded: true });
+    setCustomerRequest({
+      customer_name: res.data.customer_name,
+      phone: res.data.phone,
+      medicine_details: res.data.medicine_details,
+    });
   };
 
   return <div>CustomerRequestDetailPage</div>;
