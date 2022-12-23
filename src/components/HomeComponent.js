@@ -75,7 +75,7 @@ const HomeComponent = () => {
                   data-speed="1000"
                   data-fresh-interval="20"
                 >
-                  75
+                  {customer_request?.medicine}
                 </div>
               </div>
             </div>
