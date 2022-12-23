@@ -1,6 +1,20 @@
-import React from "react";
-
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Config from "../auth/Config";
+import Auth from "../auth/Auth";
+// MAIN FUNCTION
 const HomeComponent = () => {
+  const [customer_request, setCustomerRequest] = useState(null);
+  useEffect(() => {
+    getData();
+  }, []);
+  // getting customer request count
+  let getData = async () => {
+    let res = await axios.get(Config.customerRequestCountUrl, {
+      headers: { Authorization: "Bearer " + Auth.getLoginToken() },
+    });
+    setCustomerRequest(res.data);
+  };
   return (
     <section className="content">
       <div className="container-fluid">
@@ -15,7 +29,7 @@ const HomeComponent = () => {
                 <i className="material-icons">bookmark</i>
               </div>
               <div className="content">
-                <div className="text">TOTAL REQUEST</div>
+                <div className="text">TOTAL CUSTOMER REQUEST</div>
                 <div
                   className="number count-to"
                   data-from="0"
@@ -23,7 +37,7 @@ const HomeComponent = () => {
                   data-speed="15"
                   data-fresh-interval="20"
                 >
-                  124
+                  {customer_request?.customer}
                 </div>
               </div>
             </div>
