@@ -56,7 +56,7 @@ const HomeComponent = () => {
                   data-speed="1000"
                   data-fresh-interval="20"
                 >
-                  25
+                  {customer_request?.bill}
                 </div>
               </div>
             </div>
