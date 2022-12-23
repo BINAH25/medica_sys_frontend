@@ -13,6 +13,8 @@ class Config {
   static billUrl = "http://127.0.0.1:8000/api/bill/";
   static billDetailUrl = "http://127.0.0.1:8000/api/bill_detail/";
   static customerRequestUrl = "http://127.0.0.1:8000/api/customer_request/";
+  static customerRequestCountUrl =
+    "http://127.0.0.1:8000/api/customer_request_count/";
 
   // SIDE BAR URLS
   static sidebarItem = [
