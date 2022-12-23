@@ -94,7 +94,7 @@ const HomeComponent = () => {
                   data-speed="1000"
                   data-fresh-interval="20"
                 >
-                  50
+                  {customer_request?.company}
                 </div>
               </div>
             </div>
