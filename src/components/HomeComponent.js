@@ -164,7 +164,7 @@ const HomeComponent = () => {
                 <i className="material-icons">bookmark</i>
               </div>
               <div className="content">
-                <div className="text">MEDICINE EXPIRE IN WEEK</div>
+                <div className="text">TOTAL REQUEST COMPLETED</div>
                 <div
                   className="number count-to"
                   data-from="0"
@@ -172,7 +172,7 @@ const HomeComponent = () => {
                   data-speed="1000"
                   data-fresh-interval="20"
                 >
-                  0
+                  {customer_request?.customer_request_completed}
                 </div>
               </div>
             </div>
