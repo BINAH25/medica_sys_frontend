@@ -37,7 +37,7 @@ const HomeComponent = () => {
                   data-speed="15"
                   data-fresh-interval="20"
                 >
-                  {customer_request?.customer}
+                  {customer_request?.customer_requests}
                 </div>
               </div>
             </div>
@@ -134,7 +134,7 @@ const HomeComponent = () => {
                   data-speed="1000"
                   data-fresh-interval="20"
                 >
-                  1,523.00
+                  {customer_request?.customer}
                 </div>
               </div>
             </div>
