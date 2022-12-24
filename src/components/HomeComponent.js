@@ -145,7 +145,7 @@ const HomeComponent = () => {
                 <i className="material-icons">bookmark</i>
               </div>
               <div className="content">
-                <div className="text">TOTAL SALES AMOUNT</div>
+                <div className="text">TOTAL PENDING REQUEST</div>
                 <div
                   className="number count-to"
                   data-from="0"
@@ -153,7 +153,7 @@ const HomeComponent = () => {
                   data-speed="1000"
                   data-fresh-interval="20"
                 >
-                  125887
+                  {customer_request?.customer_request_pending}
                 </div>
               </div>
             </div>
